@@ -2,1281 +2,542 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#10070d">
-  <meta name="description" content="A little birthday universe made especially for Afeefu.">
-  <title>For Afeefu ♡</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #10070d;
-      --pink: #f0b7c8;
-      --cream: #fff0e8;
-      --muted: #c7aab5;
-      --line: rgba(212,138,163,.2);
-      --content: 1080px;
-      --safe-bottom: env(safe-area-inset-bottom, 0px);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 24px;
-    }
-
-    body {
-      margin: 0;
-      min-width: 320px;
-      min-height: 100vh;
-      min-height: 100svh;
-      overflow-x: hidden;
-      background: var(--bg);
-      color: var(--cream);
-      font-family: "DM Sans", sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse at 15% 20%, #68152b42, transparent 42%),
-        radial-gradient(ellipse at 85% 75%, #85254a30, transparent 45%),
-        linear-gradient(145deg, #10070d, #1b0913 55%, #10070d);
-    }
-
-    body.modal-open { overflow: hidden; }
-
-    button, input { font: inherit; }
-
-    button {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    button:focus-visible {
-      outline: 2px solid var(--pink);
-      outline-offset: 4px;
-    }
-
-    #stars {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .topbar {
-      position: absolute;
-      z-index: 3;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: max(20px, env(safe-area-inset-top))
-        clamp(18px, 5vw, 64px) 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .brand {
-      color: var(--pink);
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(20px, 2.4vw, 25px);
-      white-space: nowrap;
-    }
-
-    .topbar-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--muted);
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .live-dot {
-      width: 6px;
-      height: 6px;
-      flex: 0 0 6px;
-      border-radius: 50%;
-      background: #e8a0b8;
-      box-shadow: 0 0 12px #ff8eae;
-    }
-
-    .hero {
-      position: relative;
-      isolation: isolate;
-      min-height: 100vh;
-      min-height: 100svh;
-      display: grid;
-      place-items: center;
-      padding: 120px 22px 94px;
-      text-align: center;
-    }
-
-    .hero-content {
-      width: min(100%, 800px);
-      animation: arrive 1.2s ease both;
-    }
-
-    .eyebrow, .section-label {
-      color: var(--pink);
-      text-transform: uppercase;
-      letter-spacing: clamp(2px, .7vw, 5px);
-      font-size: 10px;
-      line-height: 1.8;
-    }
-
-    .eyebrow { margin-bottom: 24px; }
-
-    .ornament {
-      color: #d68ba7;
-      font-size: 21px;
-      margin-bottom: 17px;
-      animation: pulse 3s ease-in-out infinite;
-    }
-
-    h1 {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 400;
-      font-size: clamp(70px, 13.5vw, 145px);
-      line-height: .9;
-      letter-spacing: clamp(-5px, -.45vw, -2px);
-      overflow-wrap: anywhere;
-      background: linear-gradient(120deg, #fff2ec, #eab2c5 50%, #b45b7a);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      filter: drop-shadow(0 0 32px #c23f6930);
-    }
-
-    .hero-subtitle {
-      margin: 22px 0 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(24px, 4vw, 37px);
-      font-style: italic;
-      color: #edc5d2;
-    }
-
-    .hero-description {
-      max-width: 390px;
-      margin: 17px auto 0;
-      color: var(--muted);
-      font-size: clamp(13px, 1.5vw, 14px);
-      line-height: 1.9;
-    }
-
-    .divider {
-      width: 100px;
-      height: 1px;
-      margin: 29px auto;
-      background: linear-gradient(90deg, transparent, #c36c8c, transparent);
-    }
-
-    .primary-button, .secondary-button, .icon-button {
-      min-height: 48px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border: 1px solid #c9759366;
-      border-radius: 999px;
-      color: #fff0f3;
-      background: linear-gradient(135deg, #7c2142, #481329);
-      padding: 14px 22px;
-      font-size: 11px;
-      letter-spacing: 1px;
-      text-align: center;
-      cursor: pointer;
-      touch-action: manipulation;
-      box-shadow: 0 0 35px #8c234025;
-      transition: transform .25s ease, box-shadow .25s ease;
-    }
-
-    .primary-button:hover, .secondary-button:hover, .icon-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 38px #b93f683d;
-    }
-
-    .secondary-button {
-      background: rgba(255,255,255,.035);
-      box-shadow: none;
-      border-color: var(--line);
-    }
-
-    .scroll-note {
-      position: absolute;
-      bottom: max(20px, env(safe-area-inset-bottom));
-      left: 50%;
-      transform: translateX(-50%);
-      color: #a88a97;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 2.5px;
-      white-space: nowrap;
-    }
-
-    .scroll-line {
-      width: 1px;
-      height: 25px;
-      margin: 10px auto 0;
-      background: linear-gradient(#cc7898, transparent);
-      animation: pulse 2s infinite;
-    }
-
-    .section {
-      width: min(calc(100% - 40px), var(--content));
-      margin: 0 auto;
-      padding: clamp(72px, 10vw, 120px) 0;
-      text-align: center;
-    }
-
-    .section-narrow { max-width: 850px; }
-
-    .section-label { margin-bottom: 18px; }
-
-    h2 {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(42px, 7vw, 72px);
-      line-height: 1.04;
-      font-weight: 400;
-      text-wrap: balance;
-    }
-
-    h2 em {
-      color: var(--pink);
-      font-weight: 400;
-    }
-
-    .section-copy {
-      max-width: 640px;
-      margin: 18px auto 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.9;
-    }
-
-    .intro-card {
-      margin-top: 34px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: linear-gradient(135deg, #ffffff07, #c4496910);
-      padding: clamp(24px, 5vw, 50px);
-      box-shadow: 0 20px 70px #00000012;
-    }
-
-    .intro-card p {
-      margin: 0;
-      color: #e2c8d1;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(22px, 3.2vw, 29px);
-      line-height: 1.7;
-    }
-
-    .signature {
-      display: block;
-      margin-top: 22px;
-      color: var(--pink);
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: 25px;
-    }
-
-    /* MUSIC PLAYER */
-    .music-card {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 16px;
-      max-width: 700px;
-      margin: 34px auto 0;
-      padding: 18px;
-      text-align: left;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: rgba(255,239,245,.045);
-    }
-
-    .music-art {
-      display: grid;
-      place-items: center;
-      width: 62px;
-      height: 62px;
-      border-radius: 7px;
-      color: var(--pink);
-      font-size: 25px;
-      background: radial-gradient(circle at 30% 20%, #9e4666, #34101f 75%);
-    }
-
-    .music-info { min-width: 0; }
-
-    .music-title {
-      color: var(--cream);
-      font-size: 14px;
-      overflow-wrap: anywhere;
-    }
-
-    .music-subtitle {
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-    .icon-button {
-      width: 46px;
-      min-width: 46px;
-      height: 46px;
-      min-height: 46px;
-      padding: 0;
-      font-size: 16px;
-      letter-spacing: 0;
-    }
-
-    .music-progress {
-      width: 100%;
-      margin-top: 12px;
-      accent-color: #d78ca6;
-      cursor: pointer;
-    }
-
-    .music-time {
-      display: flex;
-      justify-content: space-between;
-      color: #a98c98;
-      font-size: 10px;
-    }
-
-    .audio-note {
-      max-width: 600px;
-      margin: 12px auto 0;
-      color: #b99eaa;
-      font-size: 11px;
-      line-height: 1.7;
-    }
-
-    /* PHOTO AND VIDEO GALLERY */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 36px;
-      text-align: left;
-    }
-
-    .media-card {
-      position: relative;
-      min-width: 0;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #1b0c14;
-      aspect-ratio: 4 / 5;
-      cursor: pointer;
-      isolation: isolate;
-    }
-
-    .media-card img, .media-card video {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .5s ease;
-    }
-
-    .media-card:hover img, .media-card:hover video {
-      transform: scale(1.045);
-    }
-
-    .media-card::after {
-      content: "";
-      position: absolute;
-      inset: 35% 0 0;
-      z-index: 1;
-      pointer-events: none;
-      background: linear-gradient(transparent, rgba(13,5,10,.8));
-    }
-
-    .media-caption {
-      position: absolute;
-      z-index: 2;
-      bottom: 14px;
-      left: 14px;
-      right: 14px;
-      color: #fff1f5;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(17px, 2vw, 23px);
-      line-height: 1.15;
-      overflow-wrap: anywhere;
-    }
-
-    .media-badge {
-      position: absolute;
-      z-index: 2;
-      top: 10px;
-      right: 10px;
-      padding: 7px 9px;
-      border: 1px solid #ffffff40;
-      border-radius: 99px;
-      background: #12080cb0;
-      color: white;
-      font-size: 10px;
-      backdrop-filter: blur(8px);
-    }
-
-    .empty-gallery {
-      grid-column: 1 / -1;
-      min-height: 180px;
-      display: grid;
-      place-items: center;
-      border: 1px dashed #bd68814d;
-      border-radius: 8px;
-      padding: 30px 20px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.9;
-      text-align: center;
-    }
-
-    .empty-gallery .heart {
-      display: block;
-      font-size: 28px;
-      color: var(--pink);
-      margin-bottom: 10px;
-    }
-
-    .media-help {
-      margin-top: 18px;
-      color: #a98c98;
-      font-size: 11px;
-      line-height: 1.8;
-    }
-
-    /* LONG BIRTHDAY LETTER */
-    .letter {
-      max-width: 780px;
-      margin: 34px auto 0;
-      padding: clamp(24px, 5.5vw, 56px);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background:
-        radial-gradient(ellipse at top right, #8e29441c, transparent 55%),
-        rgba(255,255,255,.025);
-      text-align: left;
-    }
-
-    .letter-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 25px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid #d48aa321;
-      color: var(--pink);
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .letter-body {
-      white-space: pre-line;
-      color: #e0c7d0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(20px, 2.5vw, 25px);
-      line-height: 1.85;
-      overflow-wrap: anywhere;
-    }
-
-    .letter-signature {
-      margin-top: 25px;
-      color: var(--pink);
-      font-family: "Cormorant Garamond", serif;
-      font-size: 27px;
-      font-style: italic;
-    }
-
-    .ending-heart {
-      color: var(--pink);
-      font-size: 30px;
-      margin: 26px 0;
-      animation: pulse 3s ease-in-out infinite;
-    }
-
-    footer {
-      padding: 32px 20px calc(30px + var(--safe-bottom));
-      border-top: 1px solid #ffffff0c;
-      color: #b596a2;
-      font-size: 11px;
-      line-height: 2;
-      letter-spacing: .7px;
-      text-align: center;
-    }
-
-    footer span { color: var(--pink); }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity .8s ease, transform .8s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .sparkle {
-      position: fixed;
-      z-index: 20;
-      pointer-events: none;
-      color: #f3b5c9;
-      animation: float-up 1.1s ease-out forwards;
-    }
-
-    /* FULLSCREEN PHOTO / VIDEO VIEWER */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 22px;
-      padding-bottom: calc(22px + var(--safe-bottom));
-      background: rgba(8,3,7,.94);
-      backdrop-filter: blur(14px);
-    }
-
-    .lightbox.open { display: flex; }
-
-    .lightbox-content {
-      position: relative;
-      width: min(100%, 1000px);
-      max-height: 100%;
-      display: grid;
-      place-items: center;
-    }
-
-    .lightbox img, .lightbox video {
-      display: block;
-      max-width: 100%;
-      max-height: 78svh;
-      object-fit: contain;
-      border-radius: 5px;
-    }
-
-    .lightbox-caption {
-      margin-top: 13px;
-      color: var(--pink);
-      text-align: center;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 23px;
-    }
-
-    .lightbox-close {
-      position: absolute;
-      z-index: 2;
-      top: -14px;
-      right: -4px;
-      width: 44px;
-      height: 44px;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      color: white;
-      background: #2a101d;
-      font-size: 23px;
-      cursor: pointer;
-    }
-
-    @keyframes arrive {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: .55; }
-      50% { opacity: 1; }
-    }
-
-    @keyframes float-up {
-      from { opacity: 1; transform: translateY(0) scale(1); }
-      to { opacity: 0; transform: translateY(-70px) scale(1.6); }
-    }
-
-    @media (min-width: 1200px) {
-      .hero { padding-top: 135px; padding-bottom: 110px; }
-    }
-
-    @media (max-width: 760px) {
-      .gallery {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-      }
-
-      .section { width: min(calc(100% - 32px), var(--content)); }
-
-      .media-caption {
-        left: 10px;
-        right: 10px;
-        bottom: 11px;
-      }
-
-      .media-badge { top: 8px; right: 8px; }
-    }
-
-    @media (max-width: 480px) {
-      .topbar { padding-left: 17px; padding-right: 17px; }
-
-      .topbar-status {
-        font-size: 8px;
-        letter-spacing: 1.3px;
-        gap: 6px;
-      }
-
-      .hero { padding: 112px 20px 90px; }
-
-      .eyebrow {
-        margin-bottom: 22px;
-        letter-spacing: 2.3px;
-      }
-
-      h1 { font-size: clamp(64px, 17vw, 88px); }
-
-      .hero-subtitle { margin-top: 19px; }
-
-      .hero-description { max-width: 310px; }
-
-      .primary-button {
-        width: min(100%, 300px);
-        padding: 15px 16px;
-        font-size: 10px;
-      }
-
-      .section { padding: 72px 0; }
-
-      .music-card {
-        grid-template-columns: 48px minmax(0, 1fr) 42px;
-        gap: 11px;
-        padding: 12px;
-      }
-
-      .music-art {
-        width: 48px;
-        height: 48px;
-        font-size: 21px;
-      }
-
-      .music-title { font-size: 12px; }
-      .music-subtitle { font-size: 10px; }
-
-      .icon-button {
-        width: 42px;
-        min-width: 42px;
-        height: 42px;
-        min-height: 42px;
-      }
-
-      .gallery { gap: 8px; margin-top: 26px; }
-
-      .media-card { border-radius: 6px; }
-      .media-caption { font-size: 17px; }
-
-      .empty-gallery { min-height: 155px; padding: 22px 14px; }
-
-      .letter-top { font-size: 9px; letter-spacing: 1.4px; }
-
-      .scroll-note { font-size: 8px; letter-spacing: 2px; }
-    }
-
-    @media (max-width: 350px) {
-      .brand { font-size: 18px; }
-      .topbar-status { font-size: 7px; }
-      .gallery { grid-template-columns: 1fr; }
-      .media-card { aspect-ratio: 5 / 4; }
-
-      .music-card {
-        grid-template-columns: 42px minmax(0, 1fr) 38px;
-        gap: 8px;
-      }
-
-      .music-art { width: 42px; height: 42px; }
-
-      .icon-button {
-        width: 38px;
-        min-width: 38px;
-        height: 38px;
-        min-height: 38px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10070d">
+<title>Happy Birthday, Afeefu ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#10070d;
+  --wine:#70203c;
+  --pink:#efb4c7;
+  --cream:#fff0e8;
+  --muted:#c7aab5;
+  --line:#d48aa32b;
+}
+* {box-sizing:border-box}
+html {scroll-behavior:smooth;scroll-padding-top:20px}
+body {
+  margin:0;min-width:320px;overflow-x:hidden;
+  background:var(--bg);color:var(--cream);
+  font-family:"DM Sans",sans-serif;
+}
+button {font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible {outline:2px solid var(--pink);outline-offset:4px}
+body::before {
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 20% 20%,#75152d55,transparent 45%),
+    radial-gradient(ellipse at 80% 75%,#8e23402d,transparent 45%),
+    linear-gradient(145deg,#10070d,#1c0914 55%,#10070d);
+}
+#stars {position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.serif {font-family:"Cormorant Garamond",serif}
+.pink {color:var(--pink)}
+.eyebrow {font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--pink);line-height:1.8}
+button:disabled {opacity:.65;cursor:default}
+
+/* Opening surprise */
+#opening {
+  position:fixed;inset:0;z-index:100;
+  display:grid;place-items:center;text-align:center;
+  padding:24px;background:#10070d;
+  transition:opacity 1s ease,visibility 1s ease;
+}
+#opening::before {
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,#79203c48,transparent 65%);
+}
+.opening-content {position:relative;width:min(100%,520px);animation:rise 1.5s ease both}
+.opening-symbol {font-size:35px;color:var(--pink);animation:glow 3s infinite}
+.opening-title {font-size:clamp(38px,9vw,62px);font-weight:400;line-height:1.1;margin:25px 0 12px}
+.opening-copy {font-size:13px;color:var(--muted);line-height:2;margin:0 auto 32px;max-width:310px}
+.opening-button,.button {
+  display:inline-flex;align-items:center;justify-content:center;gap:12px;
+  min-height:49px;padding:15px 24px;border-radius:99px;
+  border:1px solid #d38ba65c;color:white;
+  background:linear-gradient(135deg,#802543,#481329);
+  font-size:10px;letter-spacing:1.5px;
+  box-shadow:0 0 35px #8c234025;transition:transform .3s,box-shadow .3s;
+}
+.opening-button:hover,.button:hover {transform:translateY(-2px);box-shadow:0 0 40px #bb49623d}
+#opening.gone {opacity:0;visibility:hidden;pointer-events:none}
+
+/* Birthday reveal */
+.hero {
+  min-height:100svh;display:grid;place-items:center;text-align:center;
+  padding:100px 22px 75px;position:relative;isolation:isolate;
+}
+.hero-content {width:min(100%,850px)}
+.hero-content .eyebrow {margin-bottom:25px}
+.hero h1 {
+  margin:0;font-weight:400;
+  font-size:clamp(62px,13vw,132px);line-height:.88;
+  letter-spacing:-2px;
+  background:linear-gradient(125deg,#fff4ec,#e9adc2 48%,#b75c7c);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 30px #c23f6930);
+}
+.hero h2 {margin:24px 0 0;font-size:clamp(27px,5vw,43px);font-weight:400}
+.hero-description {max-width:390px;margin:20px auto 0;color:var(--muted);font-size:13px;line-height:2}
+.divider {width:100px;height:1px;margin:29px auto;background:linear-gradient(90deg,transparent,#d68ba7,transparent)}
+.hero-actions {display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.secondary {background:#ffffff08;box-shadow:none}
+.scroll-note {position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:3px;color:#b99aa7;white-space:nowrap}
+.scroll-note span {display:block;margin-top:10px;color:var(--pink);animation:float 2s infinite}
+
+/* Sections */
+.section {width:min(calc(100% - 36px),1000px);margin:auto;padding:clamp(75px,10vw,115px) 0;text-align:center}
+.section.narrow {max-width:800px}
+.section h2 {font-size:clamp(39px,7vw,68px);font-weight:400;line-height:1.05;margin:0;text-wrap:balance}
+.section h2 em {font-weight:400;color:var(--pink)}
+.section-copy {max-width:600px;margin:17px auto 0;color:var(--muted);font-size:13px;line-height:2}
+.section-label {color:var(--pink);font-size:10px;letter-spacing:4px;text-transform:uppercase;margin-bottom:19px}
+.card {
+  margin-top:32px;padding:clamp(23px,5vw,46px);
+  border:1px solid var(--line);border-radius:8px;
+  background:linear-gradient(135deg,#ffffff07,#c4496910);
+}
+.card p {margin:0;font-family:"Cormorant Garamond",serif;font-size:clamp(22px,3.6vw,29px);line-height:1.8;color:#e4cbd4}
+.signature {margin-top:24px;color:var(--pink);font-size:25px;font-style:italic}
+
+/* Memories */
+.gallery {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:34px;text-align:left}
+.memory {
+  position:relative;display:block;width:100%;min-width:0;padding:0;
+  overflow:hidden;aspect-ratio:4/5;border:1px solid var(--line);
+  border-radius:7px;background:#210d18;color:white;text-align:left;
+}
+.memory img,.memory video {display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.memory:hover img,.memory:hover video {transform:scale(1.05)}
+.memory::after {content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,#10070de0);pointer-events:none}
+.caption {position:absolute;z-index:1;bottom:13px;left:12px;right:12px;font:22px/1.15 "Cormorant Garamond",serif}
+.badge {position:absolute;z-index:1;top:9px;right:9px;background:#10070dbd;border:1px solid #ffffff40;border-radius:20px;padding:7px 9px;font-size:9px}
+.empty {grid-column:1/-1;border:1px dashed #bd68814d;border-radius:8px;padding:38px 20px;color:var(--muted);font-size:13px;line-height:2}
+.empty span {display:block;color:var(--pink);font-size:30px}
+.help {font-size:11px;line-height:1.8;color:#a98c98;margin-top:16px}
+
+/* Music and letter */
+.music-card {
+  max-width:650px;margin:30px auto 0;padding:16px;
+  display:grid;grid-template-columns:54px minmax(0,1fr) 44px;align-items:center;gap:13px;
+  text-align:left;border:1px solid var(--line);border-radius:9px;background:#ffffff08;
+}
+.album {width:54px;height:54px;display:grid;place-items:center;border-radius:6px;background:radial-gradient(circle at 30% 20%,#a64e70,#34101f);color:var(--pink);font-size:24px}
+.track-name {font-size:13px;overflow-wrap:anywhere}
+.track-sub {font-size:10px;line-height:1.6;color:var(--muted);margin-top:5px}
+.play {
+  height:44px;width:44px;border-radius:50%;border:1px solid #d38ba65c;
+  color:white;background:#70203c;font-size:16px;
+}
+.progress {width:100%;margin:9px 0 2px;accent-color:#d68ba7}
+.times {display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}
+.letter {
+  margin-top:32px;text-align:left;padding:clamp(24px,6vw,50px);
+  border:1px solid var(--line);border-radius:8px;
+  background:radial-gradient(ellipse at top right,#8e29441c,transparent 55%),#ffffff04;
+}
+.letter-head {display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-bottom:17px;margin-bottom:23px;border-bottom:1px solid var(--line);color:var(--pink);font-size:10px;letter-spacing:2px;text-transform:uppercase}
+.letter-body {white-space:pre-line;overflow-wrap:anywhere;color:#e4cbd4;font:clamp(20px,3vw,25px)/1.9 "Cormorant Garamond",serif}
+.letter-sign {margin-top:26px;font:italic 26px "Cormorant Garamond",serif;color:var(--pink)}
+.ending-heart {font-size:35px;color:var(--pink);margin:28px 0;animation:glow 3s infinite}
+footer {border-top:1px solid #ffffff10;padding:30px 18px calc(30px + env(safe-area-inset-bottom,0px));text-align:center;color:#b596a2;font-size:11px;line-height:2}
+footer span {color:var(--pink)}
+.reveal {opacity:0;transform:translateY(22px);transition:opacity .8s,transform .8s}
+.reveal.visible {opacity:1;transform:translateY(0)}
+.spark {position:fixed;z-index:110;pointer-events:none;color:var(--pink);animation:sparkUp 1.4s forwards}
+
+/* Fullscreen memories */
+#viewer {position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:20px;background:#080307f5}
+#viewer.open {display:flex}
+.viewer-inner {position:relative;width:min(100%,950px);text-align:center}
+#viewerMedia img,#viewerMedia video {max-width:100%;max-height:76svh;object-fit:contain;border-radius:5px}
+#viewerCaption {font:24px "Cormorant Garamond",serif;color:var(--pink);margin-top:12px}
+#closeViewer {position:absolute;right:0;top:-48px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#30101f;color:white;font-size:23px}
+
+@keyframes rise {from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+@keyframes glow {0%,100%{opacity:.65;text-shadow:0 0 8px #e89ab7}50%{opacity:1;text-shadow:0 0 28px #e89ab7}}
+@keyframes float {0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@keyframes sparkUp {to{opacity:0;transform:translateY(-90px) scale(1.5)}}
+
+@media(max-width:700px) {
+  .gallery {grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .section {width:calc(100% - 32px)}
+}
+@media(max-width:480px) {
+  .hero {padding:90px 19px 80px}
+  .hero h1 {font-size:clamp(57px,16vw,82px);letter-spacing:-1px}
+  .eyebrow,.section-label {letter-spacing:2.5px}
+  .opening-title {font-size:clamp(38px,10vw,54px)}
+  .opening-button,.button {width:min(100%,300px);padding:14px 15px;font-size:10px}
+  .hero-actions {flex-direction:column;align-items:center}
+  .hero-actions button {width:min(100%,290px)}
+  .section {padding:72px 0}
+  .gallery {gap:8px}
+  .caption {font-size:18px;left:9px;right:9px}
+  .memory-card {padding:12px}
+  .music-card {grid-template-columns:44px minmax(0,1fr) 40px;gap:9px;padding:12px}
+  .album {width:44px;height:44px}
+  .play {width:40px;height:40px}
+  .letter-head {font-size:9px;letter-spacing:1.3px}
+  .scroll-note {font-size:8px;letter-spacing:2px}
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+</style>
 </head>
 
 <body>
-  <canvas id="stars" aria-hidden="true"></canvas>
+<canvas id="stars" aria-hidden="true"></canvas>
 
-  <header class="topbar">
-    <div class="brand">a little something ♡</div>
-    <div class="topbar-status"><i class="live-dot"></i> MADE WITH LOVE</div>
-  </header>
-
-  <main>
-    <section class="hero" id="home">
-      <div class="hero-content">
-        <div class="eyebrow">A little world, just for you</div>
-        <div class="ornament" aria-hidden="true">✳</div>
-        <h1>Afeefu<span style="color:#e9a9bf">.</span></h1>
-        <p class="hero-subtitle">Today is all about you.</p>
-        <p class="hero-description">
-          Some people make ordinary days feel special.
-          Today, we celebrate one of them.
-        </p>
-        <div class="divider"></div>
-        <button class="primary-button" id="surpriseBtn">
-          OPEN YOUR LITTLE SURPRISE <span aria-hidden="true">↗</span>
-        </button>
-      </div>
-
-      <div class="scroll-note">
-        THERE'S MORE WAITING FOR YOU
-        <div class="scroll-line"></div>
-      </div>
-    </section>
-
-    <section class="section section-narrow reveal" id="surprise">
-      <div class="section-label">01 — A little note</div>
-      <h2>For someone <em>special.</em></h2>
-
-      <div class="intro-card">
-        <p>
-          If this little corner of the internet could
-          tell you one thing, it would be this:
-          you deserve all the happiness, love and
-          beautiful moments this world has to offer.
-        </p>
-        <span class="signature">Happy Birthday, Afeefu ♡</span>
-      </div>
-    </section>
-
-    <section class="section reveal" id="music">
-      <div class="section-label">02 — Press play</div>
-      <h2>A little <em>soundtrack.</em></h2>
-      <p class="section-copy">
-        A song to make this little corner feel even more special.
-      </p>
-
-      <div class="music-card">
-        <div class="music-art" aria-hidden="true">♫</div>
-
-        <div class="music-info">
-          <div class="music-title" id="trackTitle">
-            Your birthday soundtrack
-          </div>
-          <div class="music-subtitle" id="trackSubtitle">
-            Add your chosen audio file to get started
-          </div>
-
-          <input
-            class="music-progress"
-            id="musicProgress"
-            type="range"
-            min="0"
-            max="100"
-            value="0"
-            step="0.1"
-            aria-label="Song position"
-          >
-
-          <div class="music-time">
-            <span id="currentTime">0:00</span>
-            <span id="duration">0:00</span>
-          </div>
-        </div>
-
-        <button
-          class="icon-button"
-          id="musicToggle"
-          aria-label="Play music"
-          title="Play music"
-        >▶</button>
-      </div>
-
-      <p class="audio-note" id="audioNote">
-        Music starts only when you press play.
-        We'll connect your chosen song file in a later step.
-      </p>
-
-      <audio id="birthdayAudio" preload="metadata" loop></audio>
-    </section>
-
-    <section class="section reveal" id="memories">
-      <div class="section-label">03 — Our little universe</div>
-      <h2>Moments worth <em>keeping.</em></h2>
-      <p class="section-copy">
-        Every picture has a story. Every memory has a feeling.
-      </p>
-
-      <div class="gallery" id="gallery">
-        <div class="empty-gallery">
-          <div>
-            <span class="heart">♡</span>
-            Your favourite photos and videos will live here.
-            <br>We'll turn this space into your own memory gallery.
-          </div>
-        </div>
-      </div>
-
-      <p class="media-help">
-        Photos and videos will open when tapped. Only upload
-        personal media you're comfortable sharing on a public website.
-      </p>
-    </section>
-
-    <section class="section section-narrow reveal" id="letter">
-      <div class="section-label">04 — From the heart</div>
-      <h2>A letter, just <em>for you.</em></h2>
-      <p class="section-copy">
-        Some things deserve more than a quick message.
-        This space is ready for your own words.
-      </p>
-
-      <article class="letter">
-        <div class="letter-top">
-          <span>A little letter</span>
-          <span>♡ For Afeefu</span>
-        </div>
-
-        <div class="letter-body" id="letterBody"></div>
-
-        <div class="letter-signature">
-          Always wishing you the best ♡
-        </div>
-      </article>
-    </section>
-
-    <section class="section section-narrow reveal" id="ending">
-      <div class="section-label">05 — Until the next memory</div>
-      <h2>Your story is <em>beautiful.</em></h2>
-      <div class="ending-heart" aria-hidden="true">♡</div>
-      <p class="section-copy">
-        One birthday. A thousand wishes. And so many beautiful
-        moments still waiting to happen.
-      </p>
-      <p class="signature">Keep shining, Afeefu.</p>
-      <button class="secondary-button" id="backToTop" style="margin-top:22px">
-        BACK TO THE BEGINNING ↑
-      </button>
-    </section>
-  </main>
-
-  <footer>
-    MADE ESPECIALLY FOR <span>AFEEFU</span>
-    <br>One little website. A whole lot of love. ♡
-  </footer>
-
-  <div
-    class="lightbox"
-    id="lightbox"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Photo or video viewer"
-  >
-    <div class="lightbox-content">
-      <button class="lightbox-close" id="lightboxClose" aria-label="Close viewer">×</button>
-      <div id="lightboxMedia"></div>
-      <div class="lightbox-caption" id="lightboxCaption"></div>
-    </div>
+<!-- Opening surprise -->
+<div id="opening">
+  <div class="opening-content">
+    <div class="opening-symbol">✧ ♡ ✧</div>
+    <div class="eyebrow" style="margin-top:28px">A little something, just for you</div>
+    <h2 class="opening-title serif">Before you go any further...</h2>
+    <p class="opening-copy">Someone deserves a little extra happiness today. And this little world was made just for her.</p>
+    <button class="opening-button" id="openSurprise">OPEN YOUR SURPRISE <span>↗</span></button>
+    <p class="eyebrow" style="margin-top:28px;letter-spacing:2px">Made with love ♡</p>
   </div>
+</div>
 
-  <script>
-    /*
-      PERSONALIZE YOUR WEBSITE HERE:
+<header style="position:absolute;top:0;left:0;width:100%;padding:23px clamp(18px,5vw,60px);display:flex;justify-content:space-between;align-items:center;gap:10px;z-index:2">
+  <span class="serif pink" style="font-size:23px">a little something ♡</span>
+  <span class="eyebrow" style="font-size:9px;letter-spacing:2px">JUST FOR AFEEFU</span>
+</header>
 
-      1. Put photos, videos and audio in a folder named "media".
-      2. Add photos/videos to the mediaItems array.
-      3. Set audioFile to your audio path, e.g. "media/song.mp3".
-      4. Replace letterText with your personal birthday message.
+<main>
+  <!-- Birthday reveal -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="eyebrow">A new chapter begins today</div>
+      <div class="pink" style="font-size:24px;margin-bottom:17px">✧</div>
+      <h1>HAPPY<br>BIRTHDAY</h1>
+      <h2 class="serif pink">Afeefu ♡</h2>
+      <p class="hero-description">Today isn't just another day. It's a little reminder that the world became a little more special because you're in it.</p>
+      <div class="divider"></div>
+      <div class="hero-actions">
+        <button class="button" id="beginStory">LET THE MAGIC BEGIN ↓</button>
+        <button class="button secondary" id="skipToLetter">A LITTLE MESSAGE ♡</button>
+      </div>
+    </div>
+    <div class="scroll-note">YOUR LITTLE UNIVERSE AWAITS <span>↓</span></div>
+  </section>
 
-      Use media files you have permission to share.
-    */
+  <!-- Memories come first -->
+  <section class="section reveal" id="memories">
+    <div class="section-label">01 — Little pieces of forever</div>
+    <h2>Our memories,<br><em>our little universe.</em></h2>
+    <p class="section-copy">Some moments pass. Some become stories we carry with us. Here are a few little spaces for the memories that matter.</p>
+    <div class="gallery" id="gallery"></div>
+    <p class="help">Tap any photo or video to view it in a larger screen.</p>
+  </section>
 
-    const mediaItems = [
-      // { type: "image", src: "media/photo1.jpg", caption: "A favourite memory" },
-      // { type: "image", src: "media/photo2.jpg", caption: "One for the scrapbook" },
-      // { type: "video", src: "media/clip1.mp4", caption: "A little moment" }
-    ];
+  <!-- Music accompanies the letter -->
+  <section class="section narrow reveal" id="letterSection">
+    <div class="section-label">02 — A song & a letter</div>
+    <h2>Something from<br><em>the heart.</em></h2>
+    <p class="section-copy">Take your time here. Put on the song, get comfortable, and read every word.</p>
 
-    const audioFile = ""; // Example: "media/song.mp3"
-    const audioTitle = "Your birthday soundtrack";
+    <div class="music-card">
+      <div class="album">♫</div>
+      <div>
+        <div class="track-name" id="trackTitle">A song for Afeefu</div>
+        <div class="track-sub" id="trackSub">Your chosen soundtrack</div>
+        <input id="progress" class="progress" type="range" min="0" max="100" value="0" aria-label="Song position">
+        <div class="times"><span id="elapsed">0:00</span><span id="total">0:00</span></div>
+      </div>
+      <button class="play" id="playMusic" aria-label="Play music">▶</button>
+    </div>
+    <p class="help" id="musicHelp">Press play when you're ready. Music requires a song file to be added.</p>
+    <audio id="audio" preload="metadata"></audio>
 
-    const letterText = `Dear Afeefu,
+    <article class="letter">
+      <div class="letter-head"><span>A little letter</span><span>Especially for you ♡</span></div>
+      <div class="letter-body" id="letterBody"></div>
+      <div class="letter-sign">Happy Birthday, Afeefu ♡</div>
+    </article>
+  </section>
 
-On your special day, I hope life brings you countless reasons to smile, people who understand you, and memories that stay close to your heart.
+  <!-- Ending -->
+  <section class="section narrow reveal" id="ending">
+    <div class="section-label">03 — One last thing</div>
+    <h2>Keep being<br><em>wonderfully you.</em></h2>
+    <div class="ending-heart">♡</div>
+    <p class="section-copy">May the coming year bring you unexpected happiness, people who appreciate you, dreams that come true, and memories you'll smile about for years.</p>
+    <p class="signature serif">You deserve the beautiful things. Always.</p>
+    <button class="button secondary" id="backTop" style="margin-top:28px">BACK TO THE BEGINNING ↑</button>
+  </section>
+</main>
 
-You deserve kindness on the difficult days, laughter on the ordinary ones, and happiness in all the little moments in between.
+<footer>MADE ESPECIALLY FOR <span>AFEEFU</span><br>A little website, a whole lot of love. ♡</footer>
 
-May this new chapter bring you beautiful surprises, dreams worth chasing, and moments you'll look back on with a smile.
+<div id="viewer" role="dialog" aria-modal="true" aria-label="Memory viewer">
+  <div class="viewer-inner">
+    <button id="closeViewer" aria-label="Close viewer">×</button>
+    <div id="viewerMedia"></div>
+    <div id="viewerCaption"></div>
+  </div>
+</div>
 
-Happy Birthday, Afeefu. Keep being wonderfully you. ♡`;
+<script>
+/* =========================================================
+   PERSONALIZE THESE THREE THINGS IN A LATER STEP:
+   - mediaItems: your photo and video paths
+   - audioFile: your song path
+   - birthdayMessage: your personal long message
+   ========================================================= */
 
-    // Surprise button
-    document.getElementById("surpriseBtn").addEventListener("click", () => {
-      document.getElementById("surprise").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+const mediaItems = [
+  // {type:"image", src:"media/photo1.jpg", caption:"A favourite memory"},
+  // {type:"image", src:"media/photo2.jpg", caption:"One for the scrapbook"},
+  // {type:"video", src:"media/video1.mp4", caption:"A little moment"}
+];
 
-      for (let i = 0; i < 14; i++) {
-        setTimeout(createSparkle, i * 45);
+const audioFile = ""; // Example: "media/song.mp3"
+const audioTitle = "A song for Afeefu";
+
+const birthdayMessage = `Dear Afeefu,
+
+Happy Birthday to you! ♡
+
+Today is your day, and I hope it brings you the kind of happiness that stays with you long after the day is over. I hope you find a hundred little reasons to smile, hear words that make your heart feel lighter, and create memories that you'll always look back on fondly.
+
+Life has a way of making ordinary moments special. Sometimes it's a random conversation, sometimes it's a silly laugh, and sometimes it's simply having someone around who makes a day feel a little better. I hope this new chapter of your life brings you plenty of moments like those.
+
+I wish you courage for the things you're working towards, peace when life feels overwhelming, and people who appreciate you for who you are. I hope you never feel like you have to be anything other than yourself to deserve kindness, respect, and happiness.
+
+May your dreams grow bigger, your worries feel smaller, and your days be filled with beautiful surprises. May you get opportunities that excite you, friendships that feel genuine, and memories that become your favourite stories to tell.
+
+And whenever you look back at this birthday, I hope you remember that someone took a little time to make this corner of the internet just for you.
+
+You deserve a year full of good things, Afeefu. Keep smiling, keep growing, and keep being wonderfully you.
+
+Happy Birthday once again. May this be the beginning of a truly beautiful chapter. ♡
+
+With lots of good wishes,
+Someone who wanted to make your day special.`;
+
+document.getElementById("letterBody").textContent = birthdayMessage;
+document.getElementById("trackTitle").textContent = audioTitle;
+
+/* Opening reveal */
+const opening = document.getElementById("opening");
+document.getElementById("openSurprise").addEventListener("click", () => {
+  opening.classList.add("gone");
+  document.getElementById("home").scrollIntoView({behavior:"smooth"});
+  for(let i=0;i<30;i++) setTimeout(makeSpark, i*45);
+});
+
+/* Navigation */
+document.getElementById("beginStory").addEventListener("click", () => {
+  document.getElementById("memories").scrollIntoView({behavior:"smooth"});
+});
+document.getElementById("skipToLetter").addEventListener("click", () => {
+  document.getElementById("letterSection").scrollIntoView({behavior:"smooth"});
+});
+document.getElementById("backTop").addEventListener("click", () => {
+  document.getElementById("home").scrollIntoView({behavior:"smooth"});
+});
+
+/* Scroll reveal */
+if("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
       }
     });
+  }, {threshold:.08});
+  document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+} else {
+  document.querySelectorAll(".reveal").forEach(el=>el.classList.add("visible"));
+}
 
-    document.getElementById("backToTop").addEventListener("click", () => {
-      document.getElementById("home").scrollIntoView({ behavior: "smooth" });
-    });
+/* Floating sparkles */
+function makeSpark() {
+  const s=document.createElement("span");
+  s.className="spark";
+  s.textContent=Math.random()>.5?"✦":"♡";
+  s.style.left=(10+Math.random()*80)+"vw";
+  s.style.top=(30+Math.random()*60)+"vh";
+  s.style.fontSize=(12+Math.random()*18)+"px";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),1450);
+}
 
-    // Reveal sections as they enter the viewport
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.08 });
+/* Lightweight animated star canvas */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let stars=[],w=0,h=0;
 
-      document.querySelectorAll(".reveal").forEach((section) => {
-        observer.observe(section);
-      });
+function resizeStars() {
+  const ratio=Math.min(devicePixelRatio||1,1.5);
+  w=innerWidth;h=innerHeight;
+  canvas.width=Math.floor(w*ratio);
+  canvas.height=Math.floor(h*ratio);
+  ctx.setTransform(ratio,0,0,ratio,0,0);
+  const n=Math.min(90,Math.max(25,Math.floor(w*h/13000)));
+  stars=Array.from({length:n},()=>({
+    x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.1+.2,
+    phase:Math.random()*6,speed:Math.random()*.012+.003
+  }));
+  if(reduced) drawStars(true);
+}
+function drawStars(staticOnly=false) {
+  ctx.clearRect(0,0,w,h);
+  stars.forEach(s=>{
+    if(!staticOnly)s.phase+=s.speed;
+    const a=staticOnly?.55:.2+(Math.sin(s.phase)+1)*.3;
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,213,230,${a})`;ctx.fill();
+  });
+  if(!staticOnly&&!reduced)requestAnimationFrame(()=>drawStars());
+}
+addEventListener("resize",resizeStars,{passive:true});
+resizeStars();
+if(!reduced)drawStars();
+
+/* Memory gallery */
+const gallery=document.getElementById("gallery");
+const viewer=document.getElementById("viewer");
+const viewerMedia=document.getElementById("viewerMedia");
+const viewerCaption=document.getElementById("viewerCaption");
+let previousFocus=null;
+
+function openViewer(item) {
+  previousFocus=document.activeElement;
+  viewerMedia.replaceChildren();
+  let media;
+
+  if(item.type==="video") {
+    media=document.createElement("video");
+    media.controls=true;media.playsInline=true;media.preload="metadata";
+    media.src=item.src;
+  } else {
+    media=document.createElement("img");
+    media.src=item.src;media.alt=item.caption||"A special memory";
+  }
+
+  viewerMedia.appendChild(media);
+  viewerCaption.textContent=item.caption||"A little memory";
+  viewer.classList.add("open");
+  document.body.style.overflow="hidden";
+  document.getElementById("closeViewer").focus();
+}
+function closeViewer() {
+  viewer.classList.remove("open");
+  document.body.style.overflow="";
+  const video=viewerMedia.querySelector("video");
+  if(video)video.pause();
+  viewerMedia.replaceChildren();
+  if(previousFocus)previousFocus.focus();
+}
+document.getElementById("closeViewer").addEventListener("click",closeViewer);
+viewer.addEventListener("click",e=>{if(e.target===viewer)closeViewer()});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"&&viewer.classList.contains("open"))closeViewer();
+});
+
+function renderGallery() {
+  gallery.replaceChildren();
+
+  if(!mediaItems.length) {
+    const empty=document.createElement("div");
+    empty.className="empty";
+    const heart=document.createElement("span");
+    heart.textContent="♡";
+    empty.append(heart,document.createTextNode("Your photos and videos will live here. Add your favourite memories to complete this little universe."));
+    gallery.appendChild(empty);
+    return;
+  }
+
+  mediaItems.forEach(item=>{
+    const card=document.createElement("button");
+    card.className="memory";card.type="button";
+    card.setAttribute("aria-label",(item.caption||"Memory")+", open");
+
+    if(item.type==="video") {
+      const video=document.createElement("video");
+      video.src=item.src;video.preload="metadata";video.muted=true;video.playsInline=true;
+      card.appendChild(video);
+      const badge=document.createElement("span");
+      badge.className="badge";badge.textContent="▶ VIDEO";
+      card.appendChild(badge);
     } else {
-      document.querySelectorAll(".reveal").forEach((section) => {
-        section.classList.add("visible");
-      });
+      const img=document.createElement("img");
+      img.src=item.src;img.alt=item.caption||"Birthday memory";
+      img.loading="lazy";img.decoding="async";
+      card.appendChild(img);
     }
 
-    function createSparkle() {
-      const sparkle = document.createElement("span");
-      sparkle.className = "sparkle";
-      sparkle.textContent = Math.random() > 0.5 ? "✦" : "♡";
-      sparkle.style.left = (15 + Math.random() * 70) + "vw";
-      sparkle.style.top = (35 + Math.random() * 50) + "vh";
-      sparkle.style.fontSize = (10 + Math.random() * 15) + "px";
+    const caption=document.createElement("span");
+    caption.className="caption";caption.textContent=item.caption||"A little memory";
+    card.appendChild(caption);
+    card.addEventListener("click",()=>openViewer(item));
+    gallery.appendChild(card);
+  });
+}
+renderGallery();
 
-      document.body.appendChild(sparkle);
-      setTimeout(() => sparkle.remove(), 1200);
-    }
+/* Music player */
+const audio=document.getElementById("audio");
+const play=document.getElementById("playMusic");
+const progress=document.getElementById("progress");
+const musicHelp=document.getElementById("musicHelp");
 
-    // Responsive, lightweight night sky
-    const canvas = document.getElementById("stars");
-    const ctx = canvas.getContext("2d");
+function timeString(s) {
+  if(!Number.isFinite(s))return "0:00";
+  return Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0");
+}
 
-    let stars = [];
-    let width = 0;
-    let height = 0;
+if(audioFile) {
+  audio.src=audioFile;
+  document.getElementById("trackSub").textContent="A little soundtrack for this moment";
+  musicHelp.textContent="Press play whenever you're ready.";
+} else {
+  document.getElementById("trackSub").textContent="Your chosen song goes here";
+}
 
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+play.addEventListener("click",async()=>{
+  if(!audioFile) {
+    musicHelp.textContent='Your player is ready. Later, add your song path to audioFile, such as "media/song.mp3".';
+    return;
+  }
+  try {
+    if(audio.paused)await audio.play();
+    else audio.pause();
+  } catch(e) {
+    musicHelp.textContent="Couldn't play the song. Check the file path and audio format.";
+  }
+});
 
-    function resizeCanvas() {
-      const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
-
-      width = window.innerWidth;
-      height = window.innerHeight;
-
-      canvas.width = Math.floor(width * ratio);
-      canvas.height = Math.floor(height * ratio);
-
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-
-      const count = Math.min(
-        90,
-        Math.max(28, Math.floor(width * height / 12000))
-      );
-
-      stars = Array.from({ length: count }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 1.1 + 0.25,
-        phase: Math.random() * Math.PI * 2,
-        speed: Math.random() * 0.012 + 0.003
-      }));
-
-      if (reduceMotion) drawStars(true);
-    }
-
-    function drawStars(staticOnly = false) {
-      ctx.clearRect(0, 0, width, height);
-
-      stars.forEach((star) => {
-        if (!staticOnly) star.phase += star.speed;
-
-        const alpha = staticOnly
-          ? 0.55
-          : 0.2 + (Math.sin(star.phase) + 1) * 0.3;
-
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 213, 230, ${alpha})`;
-        ctx.fill();
-      });
-
-      if (!staticOnly && !reduceMotion) {
-        requestAnimationFrame(() => drawStars());
-      }
-    }
-
-    window.addEventListener("resize", resizeCanvas, { passive: true });
-    resizeCanvas();
-
-    if (!reduceMotion) drawStars();
-
-    // Gallery and fullscreen viewer
-    const gallery = document.getElementById("gallery");
-    const lightbox = document.getElementById("lightbox");
-    const lightboxMedia = document.getElementById("lightboxMedia");
-    const lightboxCaption = document.getElementById("lightboxCaption");
-    const lightboxClose = document.getElementById("lightboxClose");
-
-    let previouslyFocused = null;
-
-    function openLightbox(item) {
-      previouslyFocused = document.activeElement;
-      lightboxMedia.replaceChildren();
-
-      let media;
-
-      if (item.type === "video") {
-        media = document.createElement("video");
-        media.controls = true;
-        media.playsInline = true;
-        media.preload = "metadata";
-        media.src = item.src;
-      } else {
-        media = document.createElement("img");
-        media.src = item.src;
-        media.alt = item.caption || "Birthday memory";
-      }
-
-      lightboxMedia.appendChild(media);
-      lightboxCaption.textContent = item.caption || "";
-
-      lightbox.classList.add("open");
-      document.body.classList.add("modal-open");
-      lightboxClose.focus();
-    }
-
-    function closeLightbox() {
-      lightbox.classList.remove("open");
-      document.body.classList.remove("modal-open");
-
-      const video = lightboxMedia.querySelector("video");
-      if (video) video.pause();
-
-      lightboxMedia.replaceChildren();
-
-      if (previouslyFocused && typeof previouslyFocused.focus === "function") {
-        previouslyFocused.focus();
-      }
-    }
-
-    lightboxClose.addEventListener("click", closeLightbox);
-
-    lightbox.addEventListener("click", (event) => {
-      if (event.target === lightbox) closeLightbox();
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && lightbox.classList.contains("open")) {
-        closeLightbox();
-      }
-    });
-
-    function renderGallery() {
-      gallery.replaceChildren();
-
-      if (!mediaItems.length) {
-        const empty = document.createElement("div");
-        empty.className = "empty-gallery";
-
-        const message = document.createElement("div");
-        const heart = document.createElement("span");
-
-        heart.className = "heart";
-        heart.textContent = "♡";
-
-        message.append(
-          heart,
-          document.createTextNode("Your favourite photos and videos will live here."),
-          document.createElement("br"),
-          document.createTextNode("We'll turn this space into your own memory gallery.")
-        );
-
-        empty.appendChild(message);
-        gallery.appendChild(empty);
-        return;
-      }
-
-      mediaItems.forEach((item) => {
-        const card = document.createElement("button");
-        card.type = "button";
-        card.className = "media-card";
-        card.setAttribute(
-          "aria-label",
-          (item.type === "video" ? "Play video: " : "View photo: ") +
-          (item.caption || "Birthday memory")
-        );
-        card.style.padding = "0";
-        card.style.textAlign = "left";
-
-        if (item.type === "video") {
-          const video = document.createElement("video");
-          video.src = item.src;
-          video.preload = "metadata";
-          video.muted = true;
-          video.playsInline = true;
-          video.setAttribute("aria-hidden", "true");
-          card.appendChild(video);
-
-          const badge = document.createElement("span");
-          badge.className = "media-badge";
-          badge.textContent = "▶ VIDEO";
-          card.appendChild(badge);
-        } else {
-          const img = document.createElement("img");
-          img.src = item.src;
-          img.alt = item.caption || "Birthday memory";
-          img.loading = "lazy";
-          img.decoding = "async";
-          card.appendChild(img);
-        }
-
-        const caption = document.createElement("span");
-        caption.className = "media-caption";
-        caption.textContent = item.caption || "A little memory";
-        card.appendChild(caption);
-
-        card.addEventListener("click", () => openLightbox(item));
-        gallery.appendChild(card);
-      });
-    }
-
-    renderGallery();
-
-    // Music controls: a user tap is required to start playback.
-    const audio = document.getElementById("birthdayAudio");
-    const musicToggle = document.getElementById("musicToggle");
-    const musicProgress = document.getElementById("musicProgress");
-    const currentTimeEl = document.getElementById("currentTime");
-    const durationEl = document.getElementById("duration");
-    const trackTitle = document.getElementById("trackTitle");
-    const trackSubtitle = document.getElementById("trackSubtitle");
-    const audioNote = document.getElementById("audioNote");
-
-    function formatTime(seconds) {
-      if (!Number.isFinite(seconds)) return "0:00";
-
-      const mins = Math.floor(seconds / 60);
-      const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
-
-      return `${mins}:${secs}`;
-    }
-
-    if (audioFile) {
-      audio.src = audioFile;
-      trackTitle.textContent = audioTitle;
-      trackSubtitle.textContent = "A little soundtrack, just for this moment";
-      audioNote.textContent =
-        "Tap play to listen. If it does not load, check the audio file path.";
-    }
-
-    musicToggle.addEventListener("click", async () => {
-      if (!audioFile) {
-        audioNote.textContent =
-          'Your music player is ready. Add your audio path to the audioFile setting near the bottom of this file, for example: "media/song.mp3".';
-        document.getElementById("music").scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-        return;
-      }
-
-      try {
-        if (audio.paused) {
-          await audio.play();
-          musicToggle.textContent = "Ⅱ";
-          musicToggle.setAttribute("aria-label", "Pause music");
-          musicToggle.title = "Pause music";
-        } else {
-          audio.pause();
-          musicToggle.textContent = "▶";
-          musicToggle.setAttribute("aria-label", "Play music");
-          musicToggle.title = "Play music";
-        }
-      } catch (error) {
-        audioNote.textContent =
-          "The song could not be played. Check the file path and audio format, then try again.";
-      }
-    });
-
-    audio.addEventListener("loadedmetadata", () => {
-      durationEl.textContent = formatTime(audio.duration);
-    });
-
-    audio.addEventListener("timeupdate", () => {
-      currentTimeEl.textContent = formatTime(audio.currentTime);
-
-      if (Number.isFinite(audio.duration) && audio.duration > 0) {
-        musicProgress.value = (audio.currentTime / audio.duration) * 100;
-      }
-    });
-
-    musicProgress.addEventListener("input", () => {
-      if (Number.isFinite(audio.duration) && audio.duration > 0) {
-        audio.currentTime =
-          (Number(musicProgress.value) / 100) * audio.duration;
-      }
-    });
-
-    audio.addEventListener("pause", () => {
-      musicToggle.textContent = "▶";
-      musicToggle.setAttribute("aria-label", "Play music");
-      musicToggle.title = "Play music";
-    });
-
-    audio.addEventListener("play", () => {
-      musicToggle.textContent = "Ⅱ";
-      musicToggle.setAttribute("aria-label", "Pause music");
-      musicToggle.title = "Pause music";
-    });
-
-    // Safely display the birthday letter and preserve line breaks.
-    document.getElementById("letterBody").textContent = letterText;
-  </script>
+audio.addEventListener("play",()=>{
+  play.textContent="Ⅱ";play.setAttribute("aria-label","Pause music");
+});
+audio.addEventListener("pause",()=>{
+  play.textContent="▶";play.setAttribute("aria-label","Play music");
+});
+audio.addEventListener("loadedmetadata",()=>{
+  document.getElementById("total").textContent=timeString(audio.duration);
+});
+audio.addEventListener("timeupdate",()=>{
+  document.getElementById("elapsed").textContent=timeString(audio.currentTime);
+  if(Number.isFinite(audio.duration)&&audio.duration>0)
+    progress.value=audio.currentTime/audio.duration*100;
+});
+progress.addEventListener("input",()=>{
+  if(Number.isFinite(audio.duration)&&audio.duration>0)
+    audio.currentTime=Number(progress.value)/100*audio.duration;
+});
+</script>
 </body>
 </html>
