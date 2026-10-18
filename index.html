@@ -1,204 +1,501 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>For Afeefu ✨</title>
-                <link rel="stylesheet" href="style.css">
-                </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10070d">
+  <title>For Afeefu ♡</title>
 
-                <body>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
-                    <!-- MYSTERY INTRO -->
-                        <section class="intro" id="intro">
-                                <div class="intro-content">
-                                            <p class="small-text">something has been in the making...</p>
+  <style>
+    :root {
+      --bg: #10070d;
+      --wine: #7e203e;
+      --pink: #f0b7c8;
+      --cream: #fff0e8;
+      --muted: #c7aab5;
+    }
 
-                                                        <h1>
-                                                                        You weren't<br>
-                                                                                        supposed to see this yet.
-                                                                                                    </h1>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-                                                                                                                <button id="enterBtn">ENTER ✦</button>
-                                                                                                                        </div>
-                                                                                                                            </section>
+    html { scroll-behavior: smooth; }
 
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--cream);
+      font-family: "DM Sans", sans-serif;
+      overflow-x: hidden;
+    }
 
-                                                                                                                                <!-- BIRTHDAY REVEAL -->
-                                                                                                                                    <section class="reveal" id="reveal">
-                                                                                                                                            <div class="reveal-content">
-                                                                                                                                                        <p class="tiny">THE DAY HAS FINALLY COME</p>
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 15% 20%, #68152b42, transparent 42%),
+        radial-gradient(ellipse at 85% 75%, #85254a30, transparent 45%),
+        linear-gradient(145deg, #10070d, #1b0913 55%, #10070d);
+    }
 
-                                                                                                                                                                    <h2>
-                                                                                                                                                                                    HAPPY BIRTHDAY<br>
-                                                                                                                                                                                                    <span>AFEEFU</span>
-                                                                                                                                                                                                                </h2>
+    #stars {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
 
-                                                                                                                                                                                                                            <div class="scroll-hint">↓</div>
-                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                        </section>
+    .topbar {
+      position: absolute;
+      z-index: 3;
+      top: 0;
+      width: 100%;
+      padding: 25px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
 
+    .brand {
+      color: var(--pink);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 23px;
+      letter-spacing: 1px;
+      text-transform: none;
+    }
 
-                                                                                                                                                                                                                                            <!-- PHOTO COLLAGE -->
-                                                                                                                                                                                                                                                <section class="collage">
+    .topbar span:last-child {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-                                                                                                                                                                                                                                                        <div class="photo photo1">
-                                                                                                                                                                                                                                                                    <img src="https://picsum.photos/500/650?random=1" alt="Memory">
-                                                                                                                                                                                                                                                                            </div>
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #e8a0b8;
+      box-shadow: 0 0 12px #ff8eae;
+    }
 
-                                                                                                                                                                                                                                                                                    <div class="photo photo2">
-                                                                                                                                                                                                                                                                                                <img src="https://picsum.photos/600/500?random=2" alt="Memory">
-                                                                                                                                                                                                                                                                                                        </div>
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 115px 22px 65px;
+      position: relative;
+      isolation: isolate;
+    }
 
-                                                                                                                                                                                                                                                                                                                <div class="photo photo3">
-                                                                                                                                                                                                                                                                                                                            <img src="https://picsum.photos/450/600?random=3" alt="Memory">
-                                                                                                                                                                                                                                                                                                                                    </div>
+    .hero-content {
+      width: min(100%, 800px);
+      animation: arrive 1.5s ease both;
+    }
 
-                                                                                                                                                                                                                                                                                                                                            <div class="photo photo4">
-                                                                                                                                                                                                                                                                                                                                                        <img src="https://picsum.photos/600/600?random=4" alt="Memory">
-                                                                                                                                                                                                                                                                                                                                                                </div>
+    .eyebrow {
+      color: var(--pink);
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      font-size: 10px;
+      margin-bottom: 28px;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                        <div class="photo photo5">
-                                                                                                                                                                                                                                                                                                                                                                                    <img src="https://picsum.photos/500/600?random=5" alt="Memory">
-                                                                                                                                                                                                                                                                                                                                                                                            </div>
+    .ornament {
+      color: #d68ba7;
+      font-size: 21px;
+      margin-bottom: 17px;
+      animation: pulse 3s ease-in-out infinite;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                </section>
+    h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 400;
+      font-size: clamp(76px, 15vw, 145px);
+      line-height: .83;
+      letter-spacing: -5px;
+      background: linear-gradient(120deg, #fff2ec, #eab2c5 50%, #b45b7a);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 32px #c23f6930);
+    }
 
+    .hero-subtitle {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(23px, 4vw, 36px);
+      font-style: italic;
+      color: #edc5d2;
+      margin-top: 24px;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                    <!-- MEMORIES -->
-                                                                                                                                                                                                                                                                                                                                                                                                        <section class="memories">
+    .hero-description {
+      color: var(--muted);
+      max-width: 390px;
+      margin: 19px auto 0;
+      font-size: 13px;
+      line-height: 1.9;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                <p class="section-label">A FEW MOMENTS</p>
+    .divider {
+      width: 100px;
+      height: 1px;
+      margin: 32px auto;
+      background: linear-gradient(90deg, transparent, #c36c8c, transparent);
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                        <h2>
-                                                                                                                                                                                                                                                                                                                                                                                                                                    Some memories<br>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                just stay.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        </h2>
+    .primary-button {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border: 1px solid #c9759366;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #7c2142, #481329);
+      padding: 16px 27px;
+      color: #fff0f3;
+      font-family: inherit;
+      font-size: 12px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: transform .3s, box-shadow .3s;
+      box-shadow: 0 0 35px #8c234025;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="memory-card">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <img src="https://picsum.photos/700/800?random=6" alt="Memory">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+    .primary-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 42px #b93f683d;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div class="memory-card second">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <img src="https://picsum.photos/700/800?random=7" alt="Memory">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+    .scroll-note {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #a88a97;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      white-space: nowrap;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </section>
+    .scroll-line {
+      width: 1px;
+      height: 25px;
+      margin: 12px auto 0;
+      background: linear-gradient(#cc7898, transparent);
+      animation: pulse 2s infinite;
+    }
 
+    .section {
+      width: min(100% - 40px, 900px);
+      margin: 0 auto;
+      padding: 110px 0;
+      text-align: center;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!-- FUN -->
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <section class="fun">
+    .section-label {
+      color: var(--pink);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <p class="section-label">THE CHAOS</p>
+    .section h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(42px, 8vw, 68px);
+      font-weight: 400;
+      line-height: 1.05;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <h2>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        And then there's<br>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <span>YOU.</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </h2>
+    .section h2 em {
+      color: var(--pink);
+      font-weight: 400;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="fun-card">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <p>100% randomness</p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span>✦</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+    .intro-card {
+      margin-top: 36px;
+      border: 1px solid #d48aa321;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #ffffff07, #c4496910);
+      padding: clamp(25px, 6vw, 48px);
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div class="fun-card">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <p>Unlimited nonsense</p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <span>✦</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
+    .intro-card p {
+      color: #d4b9c3;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(21px, 3.5vw, 27px);
+      line-height: 1.7;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="fun-card">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <p>Way too many memories</p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span>✦</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+    .intro-card .signature {
+      display: block;
+      margin-top: 25px;
+      color: var(--pink);
+      font-style: italic;
+      font-size: 24px;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </section>
+    .memory-placeholder {
+      margin-top: 35px;
+      min-height: 180px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed #bd68814d;
+      border-radius: 5px;
+      padding: 30px;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 13px;
+    }
 
+    .memory-placeholder .heart {
+      display: block;
+      font-size: 28px;
+      color: var(--pink);
+      margin-bottom: 12px;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <!-- APPRECIATION -->
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <section class="appreciation">
+    footer {
+      text-align: center;
+      border-top: 1px solid #ffffff0c;
+      padding: 35px 20px;
+      color: #b596a2;
+      font-size: 11px;
+      letter-spacing: 1px;
+      line-height: 2;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <p class="section-label">JUST A FEW THINGS</p>
+    footer span { color: var(--pink); }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h2>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Things that make<br>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        you, <span>you.</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </h2>
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .9s ease, transform .9s ease;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="appreciation-list">
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="item">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <span>01</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <p>Your energy</p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10;
+      color: #f3b5c9;
+      animation: float-up 1.1s ease-out forwards;
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div class="item">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span>02</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <p>Your randomness</p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
+    @keyframes arrive {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="item">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <span>03</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <p>The laughs</p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+    @keyframes pulse {
+      0%, 100% { opacity: .5; }
+      50% { opacity: 1; }
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div class="item">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span>04</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <p>The memories</p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
+    @keyframes float-up {
+      from { opacity: 1; transform: translateY(0) scale(1); }
+      to { opacity: 0; transform: translateY(-70px) scale(1.6); }
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+    @media (max-width: 600px) {
+      .topbar { padding: 20px 6%; }
+      .topbar span:last-child { letter-spacing: 1px; font-size: 9px; }
+      h1 { letter-spacing: -2px; }
+      .section { padding: 80px 0; }
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </section>
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
 
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!-- MAIN MESSAGE -->
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <section class="message">
+  <header class="topbar">
+    <div class="brand">a little something ♡</div>
+    <span><i class="live-dot"></i> MADE WITH LOVE</span>
+  </header>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <p class="section-label">OKAY, NOW SERIOUSLY...</p>
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">A little world, just for you</div>
+        <div class="ornament">✳</div>
+        <h1>Afeefu<span style="color:#e9a9bf">.</span></h1>
+        <p class="hero-subtitle">Today is all about you.</p>
+        <p class="hero-description">
+          Some people make ordinary days feel special.
+          Today, we celebrate one of them.
+        </p>
+        <div class="divider"></div>
+        <button class="primary-button" id="surpriseBtn">
+          OPEN YOUR LITTLE SURPRISE <span>↗</span>
+        </button>
+      </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <h2>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        There's something<br>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    I wanted to say.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </h2>
+      <div class="scroll-note">
+        THERE'S MORE WAITING FOR YOU
+        <div class="scroll-line"></div>
+      </div>
+    </section>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <p class="main-message">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Some people become part of your life without you
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            even realizing how important they have become.
+    <section class="section reveal" id="surprise">
+      <div class="section-label">01 — A little note</div>
+      <h2>For someone <em>special.</em></h2>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        And somehow, along the way, you've become one
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    of those people.
+      <div class="intro-card">
+        <p>
+          If this little corner of the internet could
+          tell you one thing, it would be this:
+          you deserve all the happiness, love and
+          beautiful moments this world has to offer.
+        </p>
+        <span class="signature">Happy Birthday, Afeefu ♡</span>
+      </div>
+    </section>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Here's to all the memories we've already made,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            and all the ones still waiting to happen.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </p>
+    <section class="section reveal" id="memories">
+      <div class="section-label">02 — Our little universe</div>
+      <h2>Moments worth <em>keeping.</em></h2>
+      <p style="color:#c7aab5; margin-top:18px; line-height:1.9; font-size:13px;">
+        Every picture has a story. Every memory has a feeling.
+      </p>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </section>
+      <div class="memory-placeholder">
+        <div>
+          <span class="heart">♡</span>
+          Your favourite photos and videos will live here.
+          <br>We'll turn this space into your own memory gallery.
+        </div>
+      </div>
+    </section>
 
+    <section class="section reveal" id="ending">
+      <div class="section-label">03 — Until the next memory</div>
+      <h2>Your story is <em>beautiful.</em></h2>
+      <div class="divider"></div>
+      <p style="color:#c7aab5; line-height:2; font-size:13px;">
+        One birthday. A thousand wishes.
+        <br>And so many beautiful moments still waiting to happen.
+      </p>
+      <p style="font-family:'Cormorant Garamond',serif; color:#edb6c8; font-size:29px; font-style:italic; margin-top:24px;">
+        Keep shining, Afeefu. ♡
+      </p>
+    </section>
+  </main>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <!-- FINAL -->
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <section class="final">
+  <footer>
+    MADE ESPECIALLY FOR <span>AFEEFU</span>
+    <br>One little website. A whole lot of love. ♡
+  </footer>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="final-content">
+  <script>
+    // Smoothly open the surprise section.
+    document.getElementById("surpriseBtn").addEventListener("click", () => {
+      document.getElementById("surprise").scrollIntoView({
+        behavior: "smooth"
+      });
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <p>ONE LAST THING...</p>
+      for (let i = 0; i < 14; i++) {
+        setTimeout(createSparkle, i * 45);
+      }
+    });
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h2>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Keep being<br>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span>you.</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </h2>
+    // Reveal sections as they enter the screen.
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.12 });
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="heart">♡</div>
+    document.querySelectorAll(".reveal").forEach((section) => {
+      observer.observe(section);
+    });
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <p class="made">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Made with way too much effort.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </p>
+    // Small floating sparkles on click.
+    function createSparkle() {
+      const sparkle = document.createElement("span");
+      sparkle.className = "sparkle";
+      sparkle.textContent = Math.random() > 0.5 ? "✦" : "♡";
+      sparkle.style.left = (15 + Math.random() * 70) + "vw";
+      sparkle.style.top = (35 + Math.random() * 50) + "vh";
+      sparkle.style.fontSize = (10 + Math.random() * 15) + "px";
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1200);
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
+    // Draw a subtle animated night sky.
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    let stars = [];
+    let width = 0;
+    let height = 0;
+    let animationFrame;
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </section>
+    function resizeCanvas() {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * ratio;
+      canvas.height = height * ratio;
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 
+      stars = Array.from({ length: Math.min(100, Math.floor(width / 8)) }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.3 + 0.2,
+        phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.015 + 0.004
+      }));
+    }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <script src="script.js"></script>
+    function drawStars() {
+      ctx.clearRect(0, 0, width, height);
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </body>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </html>
+      stars.forEach((star) => {
+        star.phase += star.speed;
+        const alpha = 0.2 + (Math.sin(star.phase) + 1) * 0.3;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 213, 230, ${alpha})`;
+        ctx.fill();
+      });
+
+      animationFrame = requestAnimationFrame(drawStars);
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    drawStars();
+  </script>
+</body>
+</html>
