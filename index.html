@@ -4,19 +4,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Afeefu 💗</title>
+<meta name="theme-color" content="#090507">
+<title>For Afeefu ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@300;400;500;600;700&display=swap');
-
 :root {
-  --pink: #ff8dbb;
-  --light: #ffe3ef;
-  --red: #9e2146;
   --bg: #090507;
+  --burgundy: #68132e;
+  --pink: #ff8dbb;
+  --light-pink: #ffe3ef;
+  --muted: #c9aab9;
+  --gold: #e7c6a0;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
@@ -25,75 +35,81 @@ body {
   overflow-x: hidden;
 }
 
-button { font-family: inherit; }
-
-.page {
-  display: none;
-  min-height: 100svh;
-  position: relative;
-  overflow: hidden;
-}
-
-.page.active {
-  display: flex;
-  animation: pageIn 1s ease both;
-}
-
-@keyframes pageIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+button { font: inherit; }
 
 .ambient {
   position: fixed;
   inset: 0;
-  pointer-events: none;
-  z-index: 0;
+  z-index: -2;
   background:
-    radial-gradient(ellipse at 20% 20%, #68102d44, transparent 45%),
-    radial-gradient(ellipse at 80% 70%, #9e214633, transparent 42%),
-    linear-gradient(135deg, #090507, #170710 55%, #090507);
+    radial-gradient(ellipse at 15% 15%, #68132e55, transparent 42%),
+    radial-gradient(ellipse at 85% 65%, #a31e4a38, transparent 45%),
+    radial-gradient(ellipse at 50% 100%, #48102044, transparent 50%),
+    #090507;
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
 }
 
 #particles {
   position: fixed;
   inset: 0;
   z-index: 0;
-  overflow: hidden;
   pointer-events: none;
+  overflow: hidden;
 }
 
-.spark {
+.particle {
   position: absolute;
-  bottom: -30px;
-  color: #ff8dbb;
+  bottom: -35px;
+  color: var(--pink);
   opacity: 0;
-  animation: floatUp linear infinite;
   text-shadow: 0 0 15px #ff4d94;
+  animation: floatUp linear infinite;
 }
 
 @keyframes floatUp {
-  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-  15% { opacity: .7; }
-  85% { opacity: .45; }
-  100% { transform: translateY(-115vh) rotate(300deg); opacity: 0; }
+  0% { transform: translateY(0) rotate(0); opacity: 0; }
+  15% { opacity: .6; }
+  80% { opacity: .35; }
+  100% { transform: translateY(-115vh) rotate(260deg); opacity: 0; }
+}
+
+.page {
+  display: none;
+  min-height: 100svh;
+  position: relative;
+  z-index: 1;
+  animation: pageIn .8s ease both;
+}
+
+.page.active { display: flex; }
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .content {
-  width: min(100% - 32px, 1000px);
+  width: min(100% - 34px, 1050px);
   margin: auto;
-  padding: 70px 0;
+  padding: 65px 0 85px;
   text-align: center;
-  position: relative;
-  z-index: 2;
 }
 
 .eyebrow {
   color: var(--pink);
-  text-transform: uppercase;
-  letter-spacing: 5px;
   font-size: 10px;
-  margin-bottom: 26px;
+  font-weight: 400;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-bottom: 25px;
 }
 
 .script {
@@ -103,116 +119,144 @@ button { font-family: inherit; }
 }
 
 h1 {
-  font-size: clamp(43px, 9vw, 90px);
-  line-height: 1.08;
+  font-size: clamp(44px, 8vw, 88px);
   font-weight: 500;
+  line-height: 1.08;
   letter-spacing: -2px;
 }
 
 .gradient-text {
-  background: linear-gradient(110deg, #fff0f7, #ff8dbb, #ffcfdd, #c94b78);
+  background: linear-gradient(110deg, #fff1f7, #ff8dbb 40%, #ffcfdd 70%, #c94b78);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 20px #e94e8444);
+  filter: drop-shadow(0 0 20px #e94e8433);
 }
 
 .subtitle {
-  color: #c9b2bd;
+  max-width: 480px;
+  margin: 23px auto 0;
+  color: var(--muted);
   font-size: 13px;
-  line-height: 2;
-  margin: 24px auto 0;
-  max-width: 440px;
+  line-height: 2.1;
   font-weight: 300;
+}
+
+.intro-content {
+  max-width: 700px;
+}
+
+.bow {
+  font-size: 45px;
+  margin-bottom: 25px;
+  animation: bowFloat 3s ease-in-out infinite;
+}
+
+@keyframes bowFloat {
+  50% { transform: translateY(-9px) rotate(5deg); }
 }
 
 .headphone {
   display: inline-block;
-  margin: 30px 0 27px;
-  padding: 13px 19px;
+  margin: 30px 0 25px;
+  padding: 15px 20px;
   border: 1px solid #ff8dbb99;
-  border-radius: 8px;
-  background: #ff8dbb0e;
-  color: #ffd4e5;
+  border-radius: 9px;
+  color: #ffe3ef;
+  background: #ff8dbb12;
   font-size: 11px;
-  letter-spacing: 1.3px;
-  box-shadow: 0 0 30px #ff4d9410;
+  letter-spacing: 1.4px;
+  line-height: 1.9;
+  box-shadow: 0 0 30px #ff4d9416;
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  50% { box-shadow: 0 0 30px #ff4d9430; }
+  50% { box-shadow: 0 0 35px #ff4d9438; }
 }
 
 .primary-btn {
-  display: inline-block;
-  padding: 15px 27px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 15px 25px;
   border: 1px solid #ff8dbb;
   border-radius: 50px;
   color: #fff4f8;
-  background: linear-gradient(120deg, #70152f, #b72b59);
+  background: linear-gradient(120deg, #65132d, #a92550);
+  box-shadow: 0 0 30px #b72b5930;
   cursor: pointer;
-  letter-spacing: 1px;
-  font-size: 11px;
-  transition: .3s;
-  box-shadow: 0 0 30px #b72b5933;
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  transition: .3s ease;
 }
 
 .primary-btn:hover {
-  transform: translateY(-3px) scale(1.03);
+  transform: translateY(-3px);
   box-shadow: 0 0 40px #ff4d9455;
+  background: linear-gradient(120deg, #8b1b40, #c63a68);
 }
 
-.tiny-note {
-  margin-top: 20px;
-  font-size: 10px;
-  color: #927b87;
+.primary-btn:focus-visible,
+.music-control:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
 }
 
-/* PHOTO PAGE */
-
-#gallery .content { width: min(100% - 32px, 1050px); }
-
-.birthday-title {
-  margin-bottom: 14px;
+.small-note {
+  margin-top: 22px;
+  color: #927482;
+  font-size: 9px;
+  letter-spacing: 2px;
 }
+
+/* BIRTHDAY GALLERY */
+
+.gallery-title { margin-bottom: 15px; }
 
 .gallery-subtitle {
-  color: #c9aebc;
+  color: var(--muted);
   font-size: 12px;
-  margin-bottom: 36px;
+  line-height: 2;
+  margin-bottom: 38px;
 }
 
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 17px;
-  margin: 0 auto 35px;
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto 30px;
 }
 
 .photo-card {
-  position: relative;
-  padding: 8px 8px 15px;
+  min-width: 0;
+  padding: 9px 9px 15px;
+  background: linear-gradient(145deg, #ffffff12, #8d15351c);
   border: 1px solid #e98aae55;
   border-radius: 5px;
-  background: linear-gradient(145deg, #ffffff12, #8d15351c);
   box-shadow: 0 10px 35px #0008, 0 0 22px #e94e8410;
-  transition: .4s;
-  animation: reveal 1s both;
+  animation: cardIn .8s both;
+  transition: transform .4s, border-color .4s, box-shadow .4s;
 }
 
-.photo-card:nth-child(2) { animation-delay: .15s; }
-.photo-card:nth-child(3) { animation-delay: .3s; }
+.photo-card:nth-child(2) { animation-delay: .1s; }
+.photo-card:nth-child(3) { animation-delay: .2s; }
+.photo-card:nth-child(4) { animation-delay: .3s; }
+.photo-card:nth-child(5) { animation-delay: .4s; }
+.photo-card:nth-child(6) { animation-delay: .5s; }
 
-@keyframes reveal {
-  from { opacity: 0; transform: translateY(25px) rotate(-3deg); }
-  to { opacity: 1; transform: translateY(0) rotate(0); }
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(25px) scale(.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .photo-card:hover {
-  transform: translateY(-8px) rotate(1deg);
+  transform: translateY(-7px) rotate(.5deg);
   border-color: var(--pink);
-  box-shadow: 0 15px 40px #ff4d9422;
+  box-shadow: 0 15px 40px #ff4d9428;
 }
 
 .photo-card img {
@@ -220,35 +264,95 @@ h1 {
   aspect-ratio: 3 / 4;
   object-fit: cover;
   display: block;
-  background: #25101b;
-  color: #ffbdd6;
-  font-size: 12px;
+  background: linear-gradient(145deg, #30101e, #12070c);
+  color: #ffd7e6;
+  font-size: 11px;
 }
 
 .photo-caption {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 19px;
   color: #ffd7e6;
-  margin-top: 11px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(15px, 2vw, 21px);
+  font-style: italic;
+  margin-top: 12px;
+}
+
+.gallery-bottom {
+  color: #d2b6c4;
+  font-size: 12px;
+  line-height: 2;
+  margin-top: 28px;
+}
+
+/* LETTER */
+
+.letter-wrap {
+  max-width: 760px;
+  margin: 35px auto 0;
+  padding: clamp(22px, 5vw, 48px);
+  text-align: left;
+  background:
+    radial-gradient(ellipse at top, #8f25451b, transparent 65%),
+    linear-gradient(145deg, #ffffff0b, #8d153514);
+  border: 1px solid #ff8dbb55;
+  border-radius: 8px;
+  box-shadow: 0 0 55px #e94e8410;
+}
+
+.letter-heading {
+  color: var(--pink);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 5vw, 38px);
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+#birthdayMessage {
+  color: #f5dce6;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 2.1;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.letter-footer {
+  margin-top: 30px;
+  text-align: center;
+  color: var(--pink);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 27px;
+  font-style: italic;
+}
+
+.final-heart {
+  display: block;
+  font-size: 43px;
+  margin: 10px 0;
+  animation: heartbeat 1.6s infinite;
+}
+
+@keyframes heartbeat {
+  50% { transform: scale(1.15); }
 }
 
 .music-control {
   position: fixed;
-  z-index: 5;
-  bottom: 18px;
-  right: 18px;
+  z-index: 10;
+  right: 17px;
+  bottom: 17px;
   display: none;
   align-items: center;
-  gap: 9px;
-  padding: 10px 14px;
+  gap: 10px;
+  padding: 11px 15px;
   color: white;
-  background: #250b17eF;
-  border: 1px solid #ff8dbb66;
+  background: #250b17ed;
+  border: 1px solid #ff8dbb77;
   border-radius: 30px;
+  backdrop-filter: blur(12px);
   cursor: pointer;
   font-size: 11px;
-  backdrop-filter: blur(12px);
 }
 
 .music-bars {
@@ -259,6 +363,7 @@ h1 {
 }
 
 .music-bars i {
+  display: block;
   width: 3px;
   height: 5px;
   background: var(--pink);
@@ -277,60 +382,33 @@ h1 {
   to { height: 16px; }
 }
 
-/* LETTER PAGE */
-
-.letter {
-  max-width: 720px;
-  margin: 35px auto;
-  padding: clamp(24px, 6vw, 55px);
-  text-align: left;
-  line-height: 2.1;
-  font-size: 14px;
-  font-weight: 300;
-  color: #f5dce6;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  background: linear-gradient(145deg, #ffffff0a, #8d153514);
-  border: 1px solid #ff8dbb55;
-  border-radius: 8px;
-  box-shadow: 0 0 55px #e94e8410;
-}
-
-.letter-heading {
-  text-align: center;
-  color: var(--pink);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 35px;
-  font-style: italic;
-  margin-bottom: 24px;
-}
-
-.final-heart {
-  display: block;
-  font-size: 45px;
-  margin-bottom: 20px;
-  animation: heartbeat 1.5s infinite;
-}
-
-@keyframes heartbeat {
-  50% { transform: scale(1.16); }
-}
-
 .footer-note {
   color: #967482;
-  font-size: 10px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  line-height: 2;
   margin-top: 28px;
-  letter-spacing: 1px;
 }
 
 @media (max-width: 600px) {
-  .content { padding: 65px 0; }
-  h1 { letter-spacing: -1px; }
-  .photo-grid { gap: 9px; }
-  .photo-card { padding: 5px 5px 10px; }
-  .photo-caption { font-size: 15px; }
-  .letter { font-size: 13px; line-height: 1.9; }
+  .content { padding: 55px 0 80px; }
   .eyebrow { letter-spacing: 3px; }
+  h1 { letter-spacing: -1px; }
+  .photo-grid { gap: 10px; }
+  .photo-card { padding: 5px 5px 10px; }
+  .photo-caption { font-size: 15px; margin-top: 9px; }
+  .letter-wrap { padding: 22px 18px; }
+  #birthdayMessage { font-size: 12px; line-height: 2; }
+  .headphone { font-size: 10px; letter-spacing: .8px; padding: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
 }
 </style>
 </head>
@@ -338,18 +416,19 @@ h1 {
 <body>
 
 <div class="ambient"></div>
+<div class="noise"></div>
 <div id="particles"></div>
 
-<!-- MUSIC FILE: assets/music.mp3 -->
+<!-- MUSIC: Put your audio file at assets/music.mp3 -->
 <audio id="bgMusic" src="assets/music.mp3" loop preload="auto"></audio>
 
-<!-- PAGE 1: INTRO -->
+<!-- PAGE 1: CINEMATIC INTRO -->
 
 <section class="page active" id="intro">
-  <div class="content">
+  <div class="content intro-content">
     <p class="eyebrow">✦ A little something from my heart ✦</p>
 
-    <div style="font-size:42px; margin-bottom:22px;">🎀</div>
+    <div class="bow">🎀</div>
 
     <h1 class="script">
       Hey, <span class="gradient-text">Afeefu...</span>
@@ -365,7 +444,7 @@ h1 {
       🎧 &nbsp; MUST WEAR YOUR HEADPHONES &nbsp; 🎧
     </div>
 
-    <p class="subtitle" style="margin-top:0; margin-bottom:25px;">
+    <p class="subtitle" style="margin-top:0">
       Turn up the volume, get comfortable,<br>
       and let me make your day a little more special.
     </p>
@@ -374,17 +453,17 @@ h1 {
       OPEN YOUR SURPRISE &nbsp; ♡
     </button>
 
-    <p class="tiny-note">MADE WITH LOVE, JUST FOR YOU ✦</p>
+    <p class="small-note">MADE WITH LOVE, JUST FOR YOU ✦</p>
   </div>
 </section>
 
-<!-- PAGE 2: PHOTOS + BIRTHDAY -->
+<!-- PAGE 2: SIX PHOTO FRAMES -->
 
 <section class="page" id="gallery">
   <div class="content">
     <p class="eyebrow">✦ Today is your day ✦</p>
 
-    <h1 class="birthday-title">
+    <h1 class="gallery-title">
       Happy Birthday,<br>
       <span class="gradient-text script">Afeefu ♡</span>
     </h1>
@@ -395,37 +474,53 @@ h1 {
 
     <div class="photo-grid">
 
-      <!-- Replace these files with your own photos -->
       <div class="photo-card">
-        <img src="assets/photo1.jpg" alt="Afeefu memory 1">
+        <img src="assets/photo1.jpg" alt="Afeefu photo 1">
         <p class="photo-caption">Pretty little moments ♡</p>
       </div>
 
       <div class="photo-card">
-        <img src="assets/photo2.jpg" alt="Afeefu memory 2">
+        <img src="assets/photo2.jpg" alt="Afeefu photo 2">
         <p class="photo-caption">Your beautiful world ✨</p>
       </div>
 
       <div class="photo-card">
-        <img src="assets/photo3.jpg" alt="Afeefu memory 3">
+        <img src="assets/photo3.jpg" alt="Afeefu photo 3">
         <p class="photo-caption">Forever a favourite 💗</p>
+      </div>
+
+      <div class="photo-card">
+        <img src="assets/photo4.jpg" alt="Afeefu photo 4">
+        <p class="photo-caption">Little things, big memories 🌷</p>
+      </div>
+
+      <div class="photo-card">
+        <img src="assets/photo5.jpg" alt="Afeefu photo 5">
+        <p class="photo-caption">A smile worth saving ♡</p>
+      </div>
+
+      <div class="photo-card">
+        <img src="assets/photo6.jpg" alt="Afeefu photo 6">
+        <p class="photo-caption">Always a special person 💌</p>
       </div>
 
     </div>
 
-    <p class="subtitle" style="margin-top:0; margin-bottom:28px;">
-      You deserve all the happiness this world has to offer.
+    <p class="gallery-bottom">
+      You deserve all the happiness this world has to offer. 💗
     </p>
 
     <button class="primary-btn" onclick="showPage('message')">
       NEXT, MY FAVOURITE PERSON &nbsp; →
     </button>
 
-    <p class="footer-note">THERE'S STILL SOMETHING I WANT TO TELL YOU...</p>
+    <p class="footer-note">
+      THERE'S STILL SOMETHING I WANT TO TELL YOU...
+    </p>
   </div>
 </section>
 
-<!-- PAGE 3: YOUR PERSONAL MESSAGE -->
+<!-- PAGE 3: PERSONAL BIRTHDAY LETTER -->
 
 <section class="page" id="message">
   <div class="content">
@@ -437,29 +532,57 @@ h1 {
       A letter for <span class="gradient-text">you.</span>
     </h1>
 
-    <div class="letter">
+    <div class="letter-wrap">
       <div class="letter-heading">To my favourite person ♡</div>
 
-      <div id="birthdayMessage">
-HAPPYYYY BIRTHDAYYYYY TO MY ALL-TIME FAVOURITE PERSONNNN, THE ONE WHO MEANS AAAAA ALOTTTTT TO MEEEE FRRRR 😭😭💗🎀 IT'S YOUUUU, AFEEEEEFUUUUU 🫶🏻❤️‍🩹..
-How would life even be the same without youuu legiittt 😭😭 I am genuinely sooo grtfulll to have you in my life, and idk how to explain how much you actually mean to me. I literally have so many things to say but jab likhne baithta hu to samajh hi nhi aata kya likhu 😭😭 but whatever I'm writing rn, I genuinely mean every single word of it. ❤️‍🩹🫂Honestly, I never thought we'd have such a good frndshippp even after leaving school, but I am soo glad we did. You've done so much for me since our schl days, and I'll always be grtfull for that. I really hope our frndshipp keeps getting stronger and that even yrss from now, we'll still be just as close as we are today. I don't ever want us to become strangers after being such an important part of each other's lives. 😭💗AND HONESTLY, I DON'T KNOW IF I'LL ALWAYS BE ABLE TO EXPLAIN HOW MUCH YOU MEAN TO ME, BUT I HOPE MY ACTIONS, MY CARE, AND THE WAY I TREAT YOU MAKE YOU FEEL AT LEAST A LITTLE BIT OF IT. BECAUSE I DON'T JUST WANT TO SAY THAT YOU'RE IMPORTANT TO ME; I WANT YOU TO ACTUALLY FEEL THAT YOU ARE..And I want u to know that I'll always try my best to be there for you, whether you're having the worst day ever or the happiest one. You can talk to me about literally anything, and even if I can't fix your problems, I'll always try to make things a little easier for you. Also it's not just about how much we talk or how often we meet, it's about the fact that you've become someone i genuinely care about. and no matter how busy life gets, i'll always be happy to hear from u. even the smallest things about your day would be worth listening to for meee. 😭❤️ I just want to see you happy, stress-free, and getting all the love and care you deserve. I'll always try my best from my side to make sure you never feel alone. 🫂❤️i just hope that whenever u think about me, u remember me as someone who genuinely cared about u and wanted the best for u. someone u could talk to without thinking too much, someone who'd be happy to see u doing well, and someone who was always grateful to have u in their life. bcz that's genuinely what i want to be for u. i don't need our friendship to be perfect; i just want it to be real, and i hope it stays that way for a really, really long time. 😭🫂I hope this birthday brings you all the happiness you deserve, and I hope you achieve everything you've ever wished for. You deserve the best things in life, and I'll always wish the best for you.HAPPIEST BIRTHDAY ONCE AGAINNNN, AFEEEFUUU. YOU'LL ALWAYS BE ONE OF MY FAVOURITE PEOPLE, AND I'LL ALWAYS BE GRATEFUL THAT LIFE GAVE ME A FRIEND LIKE YOUUUU. I LOVE YOUUUU SOOOOO MUCHHHHH💓💓💓,  MAY YOU ALWAYS HAVE MORE REASONS TO SMILE THAN TO WORRY, MORE HAPPINESS THAN SADNESS, AND MORE LOVE THAN YOU COULD EVER ASK FORRRR. STAY HAPPY, STAY BLESSED, AND NEVER FORGET HOW MUCH YOU MEAN TO MEEEE. 😭😭  LOVE YOUUU SOOOoooooo MUCHHHH 🫂💗
- 💗</div>
+      <div id="birthdayMessage"></div>
+
+      <div class="letter-footer">With lots and lots of love ♡</div>
     </div>
+
+    <span class="final-heart" style="margin-top:35px">🫂💗</span>
+
+    <h1 class="script" style="font-size:clamp(35px,7vw,65px)">
+      Happy Birthday,<br>
+      <span class="gradient-text">Afeefu.</span>
+    </h1>
+
+    <p class="subtitle">
+      Some people make life a little more beautiful<br>
+      simply by being a part of it. ♡
+    </p>
 
     <button class="primary-btn" onclick="showPage('gallery')">
       ← BACK TO YOUR MEMORIES
     </button>
 
-    <p class="footer-note">HAPPY BIRTHDAY ONCE AGAIN, AFEEFU 🫂💗</p>
+    <p class="footer-note">
+      MADE WITH LOVE, JUST FOR YOU 🫂💗
+    </p>
   </div>
 </section>
 
+<!-- MUSIC CONTROL -->
+
 <button class="music-control" id="musicControl" onclick="toggleMusic()">
-  <span class="music-bars"><i></i><i></i><i></i><i></i></span>
+  <span class="music-bars">
+    <i></i><i></i><i></i><i></i>
+  </span>
   <span id="musicLabel">Pause music</span>
 </button>
 
 <script>
+/*
+  YOUR ORIGINAL BIRTHDAY MESSAGE.
+  Displayed as text so HTML characters and emojis remain text.
+  Do not edit this string if you want to preserve the original message.
+*/
+
+const birthdayMessage = String.raw`HAPPYYYY BIRTHDAYYYYY TO MY ALL-TIME FAVOURITE PERSONNNN, THE ONE WHO MEANS AAAAA ALOTTTTT TO MEEEE FRRRR 😭😭💗🎀 IT'S YOUUUU, AFEEEEEFUUUUU 🫶🏻❤️‍🩹..
+How would life even be the same without youuu legiittt 😭😭 I am genuinely sooo grtfulll to have you in my life, and idk how to explain how much you actually mean to me. I literally have so many things to say but jab likhne baithta hu to samajh hi nhi aata kya likhu 😭😭 but whatever I'm writing rn, I genuinely mean every single word of it. ❤️‍🩹🫂Honestly, I never thought we'd have such a good frndshippp even after leaving school, but I am soo glad we did. You've done so much for me since our schl days, and I'll always be grtfull for that. I really hope our frndshipp keeps getting stronger and that even yrss from now, we'll still be just as close as we are today. I don't ever want us to become strangers after being such an important part of each other's lives. 😭💗AND HONESTLY, I DON'T KNOW IF I'LL ALWAYS BE ABLE TO EXPLAIN HOW MUCH YOU MEAN TO ME, BUT I HOPE MY ACTIONS, MY CARE, AND THE WAY I TREAT YOU MAKE YOU FEEL AT LEAST A LITTLE BIT OF IT. BECAUSE I DON'T JUST WANT TO SAY THAT YOU'RE IMPORTANT TO ME; I WANT YOU TO ACTUALLY FEEL THAT YOU ARE..And I want u to know that I'll always try my best to be there for you, whether you're having the worst day ever or the happiest one. You can talk to me about literally anything, and even if I can't fix your problems, I'll always try to make things a little easier for you. Also it's not just about how much we talk or how often we meet, it's about the fact that you've become someone i genuinely care about. and no matter how busy life gets, i'll always be happy to hear from u. even the smallest things about your day would be worth listening to for meee. 😭❤️ I just want to see you happy, stress-free, and getting all the love and care you deserve. I'll always try my best from my side to make sure you never feel alone. 🫂❤️i just hope that whenever u think about me, u remember me as someone who genuinely cared about u and wanted the best for u. someone u could talk to without thinking too much, someone who'd be happy to see u doing well, and someone who was always grateful to have u in their life. bcz that's genuinely what i want to be for u. i don't need our friendship to be perfect; i just want it to be real, and i hope it stays that way for a really, really long time. 😭🫂I hope this birthday brings you all the happiness you deserve, and I hope you achieve everything you've ever wished for. You deserve the best things in life, and I'll always wish the best for you.HAPPIEST BIRTHDAY ONCE AGAINNNN, AFEEEFUUU. YOU'LL ALWAYS BE ONE OF MY FAVOURITE PEOPLE, AND I'LL ALWAYS BE GRATEFUL THAT LIFE GAVE ME A FRIEND LIKE YOUUUU. I LOVE YOUUUU SOOOOO MUCHHHHH💓💓💓,  MAY YOU ALWAYS HAVE MORE REASONS TO SMILE THAN TO WORRY, MORE HAPPINESS THAN SADNESS, AND MORE LOVE THAN YOU COULD EVER ASK FORRRR. STAY HAPPY, STAY BLESSED, AND NEVER FORGET HOW MUCH YOU MEAN TO MEEEE. 😭😭  LOVE YOUUU SOOOoooooo MUCHHHH 🫂💗`;
+
+document.getElementById('birthdayMessage').textContent = birthdayMessage;
+
 const music = document.getElementById('bgMusic');
 const musicControl = document.getElementById('musicControl');
 const musicLabel = document.getElementById('musicLabel');
@@ -474,11 +597,11 @@ function showPage(pageId) {
 }
 
 async function startSurprise() {
-  // Start the birthday music after the visitor clicks.
+  // Browsers generally allow sound after a user click.
   try {
     await music.play();
   } catch (error) {
-    console.log('Music could not start. Check assets/music.mp3.');
+    console.warn('Music did not start. Check assets/music.mp3.');
   }
 
   musicControl.style.display = 'flex';
@@ -488,9 +611,11 @@ async function startSurprise() {
 
 function toggleMusic() {
   if (music.paused) {
-    music.play().then(updateMusicButton).catch(() => {
-      musicLabel.textContent = 'Tap to play again';
-    });
+    music.play()
+      .then(updateMusicButton)
+      .catch(() => {
+        musicLabel.textContent = 'Play music';
+      });
   } else {
     music.pause();
     updateMusicButton();
@@ -502,22 +627,21 @@ function updateMusicButton() {
   musicControl.classList.toggle('playing', !music.paused);
 }
 
-// Floating hearts and sparkles.
+// Floating hearts, sparkles and subtle ambient motion.
 const particleArea = document.getElementById('particles');
 const symbols = ['♡', '✦', '♥', '·'];
 
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 32; i++) {
   const particle = document.createElement('span');
-  particle.className = 'spark';
+  particle.className = 'particle';
   particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
   particle.style.left = Math.random() * 100 + '%';
-  particle.style.animationDuration = (9 + Math.random() * 13) + 's';
+  particle.style.animationDuration = (10 + Math.random() * 13) + 's';
   particle.style.animationDelay = (-Math.random() * 20) + 's';
-  particle.style.fontSize = (10 + Math.random() * 15) + 'px';
+  particle.style.fontSize = (10 + Math.random() * 16) + 'px';
   particleArea.appendChild(particle);
 }
 </script>
 
 </body>
 </html>
-
