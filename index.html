@@ -62,7 +62,6 @@ button { font-family: inherit; cursor: pointer; }
   pointer-events: none;
   z-index: 0;
 }
-
 .glow.one { top: 5%; left: -150px; }
 .glow.two { bottom: 0; right: -150px; }
 
@@ -85,16 +84,8 @@ h1, h2, .serif {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
 }
-
-h1 {
-  font-size: clamp(46px, 9vw, 94px);
-  line-height: .98;
-}
-
-h2 {
-  font-size: clamp(35px, 6vw, 60px);
-  line-height: 1.1;
-}
+h1 { font-size: clamp(46px, 9vw, 94px); line-height: .98; }
+h2 { font-size: clamp(35px, 6vw, 60px); line-height: 1.1; }
 
 .pink {
   color: var(--pink);
@@ -120,21 +111,18 @@ h2 {
   box-shadow: 0 0 40px #a51d4820;
   animation: pulse 2s ease-in-out infinite;
 }
-
 .headphone-box strong {
   display: block;
   color: #ffd2e2;
   letter-spacing: 2px;
   font-size: clamp(13px, 3vw, 17px);
 }
-
 .headphone-box span {
   display: block;
   margin-top: 7px;
   color: #c9aab7;
   font-size: 12px;
 }
-
 @keyframes pulse {
   50% { box-shadow: 0 0 42px #ff4c8b35; }
 }
@@ -150,12 +138,10 @@ h2 {
   transition: .3s;
   box-shadow: 0 8px 30px #8b17402e;
 }
-
 .btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 38px #e3387545;
 }
-
 .btn.secondary {
   background: #ffffff08;
   border-color: #ffffff40;
@@ -179,7 +165,6 @@ h2 {
   animation-delay: var(--delay);
   z-index: 0;
 }
-
 @keyframes floatUp {
   0% { transform: translateY(0) rotate(0); opacity: 0; }
   15% { opacity: .65; }
@@ -187,28 +172,42 @@ h2 {
   100% { transform: translateY(-115vh) rotate(35deg); opacity: 0; }
 }
 
-/* PHOTOS */
+/* SCRAPBOOK GALLERY */
 
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 20px;
   margin: 35px auto;
   max-width: 900px;
 }
 
 .photo-card {
+  position: relative;
   background: linear-gradient(145deg, #fff9fb, #f3dbe4);
   padding: 9px 9px 15px;
   border-radius: 5px;
   box-shadow: 0 12px 35px #0008, 0 0 22px #e95a8b12;
   color: #47182a;
+  cursor: pointer;
+  opacity: 0;
+  animation: photoAppear .8s ease forwards;
   transition: transform .35s, box-shadow .35s;
+}
+.photo-card:nth-child(1) { animation-delay: .1s; }
+.photo-card:nth-child(2) { animation-delay: .25s; }
+.photo-card:nth-child(3) { animation-delay: .4s; }
+.photo-card:nth-child(4) { animation-delay: .55s; }
+.photo-card:nth-child(5) { animation-delay: .7s; }
+.photo-card:nth-child(6) { animation-delay: .85s; }
+
+@keyframes photoAppear {
+  from { opacity: 0; transform: translateY(28px) rotate(-4deg) scale(.94); }
+  to { opacity: 1; transform: translateY(0) rotate(0) scale(1); }
 }
 
 .photo-card:nth-child(2n) { transform: rotate(2deg); }
 .photo-card:nth-child(3n) { transform: rotate(-2deg); }
-
 .photo-card:hover {
   transform: translateY(-8px) rotate(0deg) scale(1.025);
   box-shadow: 0 18px 40px #0009, 0 0 30px #ff8eb533;
@@ -229,10 +228,10 @@ h2 {
   font-style: italic;
 }
 
-.music-status {
-  color: #f0b6cc;
-  font-size: 12px;
-  margin: 5px 0 20px;
+.photo-hint {
+  color: #d8b9c7;
+  font-size: 11px;
+  letter-spacing: 1px;
 }
 
 .button-row {
@@ -243,7 +242,94 @@ h2 {
   margin-top: 20px;
 }
 
-/* LETTER */
+/* MEMORY CARD */
+
+.memory-card {
+  max-width: 600px;
+  margin: 25px auto;
+  padding: 28px;
+  border: 1px solid #ff8eb54a;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #391020, #160a12);
+  box-shadow: 0 0 35px #a51d4820;
+}
+
+.memory-inside {
+  display: none;
+  color: #f5dfe8;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(23px, 4vw, 33px);
+  line-height: 1.6;
+  margin-top: 18px;
+  animation: pageIn .8s ease both;
+}
+.memory-inside.visible { display: block; }
+
+/* ENVELOPE REVEAL */
+
+.envelope-scene {
+  width: min(100%, 520px);
+  margin: 35px auto;
+  perspective: 1000px;
+}
+
+.envelope {
+  position: relative;
+  height: 240px;
+  background: #691631;
+  border: 1px solid #ff8eb56b;
+  border-radius: 8px;
+  box-shadow: 0 0 60px #e3387530;
+  overflow: hidden;
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, #a83259, #481020);
+  clip-path: polygon(0 0, 100% 0, 50% 58%);
+  z-index: 2;
+  transform-origin: top center;
+  transition: transform .8s ease;
+}
+
+.envelope::after {
+  content: "♡";
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, -50%);
+  width: 55px;
+  height: 55px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #ffd9e6;
+  color: #8b2044;
+  font-size: 31px;
+  box-shadow: 0 0 30px #ff8eb566;
+  transition: opacity .3s;
+}
+
+.envelope.open::before {
+  transform: rotateX(180deg);
+}
+.envelope.open::after {
+  opacity: 0;
+}
+
+.envelope-label {
+  position: absolute;
+  z-index: 1;
+  inset: auto 10px 25px;
+  color: #ffe5ef;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 27px;
+}
+
+/* LETTER AND MUSIC */
 
 .letter {
   text-align: left;
@@ -260,20 +346,25 @@ h2 {
   text-align: center;
   margin-bottom: 25px;
 }
-
 .letter-top .serif {
   color: var(--pink);
   font-size: 30px;
 }
 
 .message-text {
-  white-space: pre-wrap;
   overflow-wrap: anywhere;
   color: #f5dfe8;
   font-size: 14px;
   line-height: 2;
   font-weight: 300;
+  white-space: pre-wrap;
 }
+
+.word {
+  opacity: 0;
+  transition: opacity .08s linear;
+}
+.word.shown { opacity: 1; }
 
 .music-card {
   max-width: 800px;
@@ -286,13 +377,12 @@ h2 {
   box-shadow: 0 0 35px #a51d4818;
 }
 
-.music-card .music-title {
+.music-title {
   color: #ffd0e0;
   font-family: 'Cormorant Garamond', serif;
   font-size: 25px;
 }
-
-.music-card .music-subtitle {
+.music-subtitle {
   color: #c5a0b0;
   font-size: 11px;
   margin: 6px 0 17px;
@@ -314,29 +404,21 @@ h2 {
   letter-spacing: 1px;
 }
 
-.music-button:disabled {
-  opacity: .7;
-  cursor: wait;
-}
-
 .equalizer {
   display: inline-flex;
   align-items: center;
   gap: 3px;
   height: 18px;
 }
-
 .equalizer span {
   width: 3px;
   height: 5px;
   border-radius: 4px;
   background: #ffd3e2;
 }
-
 .music-button.playing .equalizer span {
   animation: equalize .65s ease-in-out infinite alternate;
 }
-
 .equalizer span:nth-child(2) { animation-delay: .2s; }
 .equalizer span:nth-child(3) { animation-delay: .4s; }
 .equalizer span:nth-child(4) { animation-delay: .1s; }
@@ -346,6 +428,13 @@ h2 {
   to { height: 17px; }
 }
 
+.type-status {
+  color: #d7a9bc;
+  font-size: 11px;
+  margin: 12px 0;
+  text-align: center;
+}
+
 .footer {
   color: #bb91a4;
   font-size: 11px;
@@ -353,20 +442,63 @@ h2 {
   margin-top: 28px;
 }
 
+/* PHOTO LIGHTBOX */
+
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #080408f5;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.lightbox.visible { display: flex; }
+
+.lightbox img {
+  max-width: min(90vw, 850px);
+  max-height: 82vh;
+  object-fit: contain;
+  border: 8px solid #fff4f8;
+  box-shadow: 0 0 55px #ff8eb544;
+}
+
+.close-lightbox {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  color: white;
+  background: transparent;
+  border: 0;
+  font-size: 34px;
+}
+
+/* FINAL HUG */
+
+.hug-result {
+  display: none;
+  margin: 25px auto;
+  font-size: clamp(32px, 7vw, 65px);
+  animation: hugPop .8s ease both;
+}
+.hug-result.visible { display: block; }
+
+@keyframes hugPop {
+  0% { opacity: 0; transform: scale(.4); }
+  70% { opacity: 1; transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
 @media (max-width: 700px) {
   .photo-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 13px;
   }
-
   .photo-card img { height: 175px; }
   .photo-caption { font-size: 17px; }
   .page { padding: 28px 15px; }
-
-  .message-text {
-    font-size: 13px;
-    line-height: 1.9;
-  }
+  .message-text { font-size: 13px; line-height: 1.9; }
 }
 
 @media (max-width: 380px) {
@@ -387,17 +519,16 @@ h2 {
 <div class="heart" style="--left:71%;--size:17px;--duration:17s;--delay:1s">♥</div>
 <div class="heart" style="--left:91%;--size:20px;--duration:15s;--delay:6s">♡</div>
 
-<!-- PHOTO-PAGE MUSIC -->
+<!-- MUSIC FILES -->
 <audio id="photoMusic" loop preload="none">
   <source src="assets/photos-music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- LONG MESSAGE MUSIC: YOUR UPLOADED MP3 -->
 <audio id="messageMusic" loop preload="auto">
   <source src="assets/message-music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- INTRO -->
+<!-- INTRO: KEPT THE SAME -->
 <section id="intro" class="page active">
   <div class="content">
     <p class="eyebrow">A little surprise, made just for you</p>
@@ -434,53 +565,103 @@ h2 {
       Here are a few little spaces for your favourite memories. 🎀
     </p>
 
-    <p class="music-status" id="photoMusicStatus">
-      ♫ Your photo-page music is ready
-    </p>
+    <p class="photo-hint">✦ TAP ANY PHOTO TO OPEN IT ✦</p>
 
     <div class="photo-grid">
-      <div class="photo-card">
+      <div class="photo-card" onclick="openPhoto('assets/photo1.jpg')">
         <img src="assets/photo1.jpg" alt="Birthday memory 1">
         <div class="photo-caption">A little memory ♡</div>
       </div>
 
-      <div class="photo-card">
+      <div class="photo-card" onclick="openPhoto('assets/photo2.jpg')">
         <img src="assets/photo2.jpg" alt="Birthday memory 2">
         <div class="photo-caption">A special moment ✨</div>
       </div>
 
-      <div class="photo-card">
+      <div class="photo-card" onclick="openPhoto('assets/photo3.jpg')">
         <img src="assets/photo3.jpg" alt="Birthday memory 3">
         <div class="photo-caption">One for the heart 💗</div>
       </div>
 
-      <div class="photo-card">
+      <div class="photo-card" onclick="openPhoto('assets/photo4.jpg')">
         <img src="assets/photo4.jpg" alt="Birthday memory 4">
         <div class="photo-caption">Never forgotten 🎀</div>
       </div>
 
-      <div class="photo-card">
+      <div class="photo-card" onclick="openPhoto('assets/photo5.jpg')">
         <img src="assets/photo5.jpg" alt="Birthday memory 5">
         <div class="photo-caption">A moment to keep 🫂</div>
       </div>
 
-      <div class="photo-card">
+      <div class="photo-card" onclick="openPhoto('assets/photo6.jpg')">
         <img src="assets/photo6.jpg" alt="Birthday memory 6">
         <div class="photo-caption">And many more ♡</div>
       </div>
     </div>
+
+    <div class="memory-card">
+      <p class="eyebrow">A tiny surprise inside</p>
+      <h2 class="serif">One little thing… <span class="pink">♡</span></h2>
+      <p class="subtitle">There's something hidden here just for you.</p>
+
+      <button class="btn" id="memoryButton" onclick="revealMemory()">
+        OPEN YOUR MEMORY 💌
+      </button>
+
+      <div id="memoryInside" class="memory-inside">
+        Out of all the little things life gives us,
+        some people become the memories we never want to lose. 🫂💗
+      </div>
+    </div>
+
+    <p class="tiny-note">Six little frames, and so many more memories to make. 💗</p>
 
     <div class="button-row">
       <button class="btn secondary" onclick="togglePhotoMusic()">
         ♫ PLAY / PAUSE MUSIC
       </button>
 
-      <button class="btn" onclick="showMessage()">
+      <button class="btn" onclick="goToEnvelope()">
         ONE LAST THING FOR YOU 💌
       </button>
     </div>
 
-    <p class="tiny-note">Six little frames, and so many more memories to make. 💗</p>
+    <p class="type-status" id="photoMusicStatus">♫ Your photo-page music is ready</p>
+  </div>
+</section>
+
+<!-- PHOTO LIGHTBOX -->
+<div id="lightbox" class="lightbox" onclick="closePhoto()">
+  <button class="close-lightbox" aria-label="Close photo" onclick="closePhoto()">×</button>
+  <img id="lightboxImage" src="" alt="Expanded memory" onclick="event.stopPropagation()">
+</div>
+
+<!-- ENVELOPE PAGE -->
+<section id="envelopePage" class="page">
+  <div class="content">
+    <p class="eyebrow">A little something from my heart</p>
+
+    <h2>There’s something I’ve been wanting to tell <span class="pink">you…</span></h2>
+
+    <p class="subtitle">
+      Some things are too special to say in just a few words. 💗
+    </p>
+
+    <div class="envelope-scene">
+      <div id="envelope" class="envelope">
+        <div class="envelope-label">A letter, just for you ♡</div>
+      </div>
+    </div>
+
+    <button id="openLetterButton" class="btn" onclick="openLetter()">
+      OPEN YOUR LETTER ♡
+    </button>
+
+    <div class="button-row">
+      <button class="btn secondary" onclick="backToPhotos()">
+        ← BACK TO MEMORIES
+      </button>
+    </div>
   </div>
 </section>
 
@@ -497,14 +678,20 @@ h2 {
         Indila · Love Story (Piano Cover)
       </p>
 
-      <button
-        id="messageMusicButton"
-        class="music-button"
+      <button id="messageMusicButton" class="music-button"
         onclick="toggleMessageMusic()">
         <span class="equalizer" aria-hidden="true">
           <span></span><span></span><span></span><span></span>
         </span>
         <span id="messageMusicButtonText">PLAY MUSIC ♫</span>
+      </button>
+    </div>
+
+    <p id="typingStatus" class="type-status">A little message, written from the heart…</p>
+
+    <div class="button-row" id="typingControls">
+      <button class="btn secondary" onclick="showAllMessage()">
+        SHOW FULL MESSAGE
       </button>
     </div>
 
@@ -517,25 +704,41 @@ h2 {
       <div id="birthdayMessage" class="message-text"></div>
     </article>
 
-    <button class="btn secondary" onclick="backToPhotos()">
-      ← BACK TO YOUR MEMORIES
-    </button>
+    <div id="finalHug" class="hug-result">🫂💗🫂</div>
+
+    <div class="button-row">
+      <button id="hugButton" class="btn" onclick="showHug()" hidden>
+        ONE LAST HUG? 🫂
+      </button>
+
+      <button class="btn secondary" onclick="backToPhotos()">
+        ← BACK TO YOUR MEMORIES
+      </button>
+    </div>
 
     <p class="footer">MADE WITH LOVE · JUST FOR AFEEEFUUU 💗</p>
   </div>
 </section>
 
 <script>
+/*
+  IMPORTANT:
+  Keep your MP3 files inside the assets folder.
+  Keep your six photos named photo1.jpg to photo6.jpg.
+*/
+
 const birthdayMessage = `HAPPYYYY BIRTHDAYYYYY TO MY ALL-TIME FAVOURITE PERSONNNN, THE ONE WHO MEANS AAAAA ALOTTTTT TO MEEEE FRRRR 😭😭💗🎀 IT'S YOUUUU, AFEEEEEFUUUUU 🫶🏻❤️‍🩹..
 How would life even be the same without youuu legiittt 😭😭 I am genuinely sooo grtfulll to have you in my life, and idk how to explain how much you actually mean to me. I literally have so many things to say but jab likhne baithta hu to samajh hi nhi aata kya likhu 😭😭 but whatever I'm writing rn, I genuinely mean every single word of it. ❤️‍🩹🫂Honestly, I never thought we'd have such a good frndshippp even after leaving school, but I am soo glad we did. You've done so much for me since our schl days, and I'll always be grtfull for that. I really hope our frndshipp keeps getting stronger and that even yrss from now, we'll still be just as close as we are today. I don't ever want us to become strangers after being such an important part of each other's lives. 😭💗AND HONESTLY, I DON'T KNOW IF I'LL ALWAYS BE ABLE TO EXPLAIN HOW MUCH YOU MEAN TO ME, BUT I HOPE MY ACTIONS, MY CARE, AND THE WAY I TREAT YOU MAKE YOU FEEL AT LEAST A LITTLE BIT OF IT. BECAUSE I DON'T JUST WANT TO SAY THAT YOU'RE IMPORTANT TO ME; I WANT YOU TO ACTUALLY FEEL THAT YOU ARE..And I want u to know that I'll always try my best to be there for you, whether you're having the worst day ever or the happiest one. You can talk to me about literally anything, and even if I can't fix your problems, I'll always try to make things a little easier for you. Also it's not just about how much we talk or how often we meet, it's about the fact that you've become someone i genuinely care about. and no matter how busy life gets, i'll always be happy to hear from u. even the smallest things about your day would be worth listening to for meee. 😭❤️ I just want to see you happy, stress-free, and getting all the love and care you deserve. I'll always try my best from my side to make sure you never feel alone. 🫂❤️i just hope that whenever u think about me, u remember me as someone who genuinely cared about u and wanted the best for u. someone u could talk to without thinking too much, someone who'd be happy to see u doing well, and someone who was always grateful to have u in their life. bcz that's genuinely what i want to be for u. i don't need our friendship to be perfect; i just want it to be real, and i hope it stays that way for a really, really long time. 😭🫂I hope this birthday brings you all the happiness you deserve, and I hope you achieve everything you've ever wished for. You deserve the best things in life, and I'll always wish the best for you.HAPPIEST BIRTHDAY ONCE AGAINNNN, AFEEEFUUU. YOU'LL ALWAYS BE ONE OF MY FAVOURITE PEOPLE, AND I'LL ALWAYS BE GRATEFUL THAT LIFE GAVE ME A FRIEND LIKE YOUUUU. I LOVE YOUUUU SOOOOO MUCHHHHH💓💓💓,  MAY YOU ALWAYS HAVE MORE REASONS TO SMILE THAN TO WORRY, MORE HAPPINESS THAN SADNESS, AND MORE LOVE THAN YOU COULD EVER ASK FORRRR. STAY HAPPY, STAY BLESSED, AND NEVER FORGET HOW MUCH YOU MEAN TO MEEEE. 😭😭  LOVE YOUUU SOOOoooooo MUCHHHH 🫂💗`;
-
-document.getElementById("birthdayMessage").textContent = birthdayMessage;
 
 const photoMusic = document.getElementById("photoMusic");
 const messageMusic = document.getElementById("messageMusic");
 const messageMusicButton = document.getElementById("messageMusicButton");
 const messageMusicButtonText = document.getElementById("messageMusicButtonText");
 const messageMusicStatus = document.getElementById("messageMusicStatus");
+
+let typingTimer = null;
+let typingStarted = false;
+let typingFinished = false;
 
 function changePage(pageId) {
   document.querySelectorAll(".page").forEach(page => {
@@ -544,14 +747,6 @@ function changePage(pageId) {
 
   document.getElementById(pageId).classList.add("active");
   window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function updateMessageMusicUI(isPlaying) {
-  messageMusicButton.classList.toggle("playing", isPlaying);
-  messageMusicButtonText.textContent = isPlaying ? "PAUSE MUSIC ♫" : "PLAY MUSIC ♫";
-  messageMusicStatus.textContent = isPlaying
-    ? "Now playing · Indila — Love Story (Piano Cover) ♡"
-    : "Indila · Love Story (Piano Cover)";
 }
 
 async function startSurprise() {
@@ -564,7 +759,7 @@ async function startSurprise() {
       "♫ Photo-page music is playing 💗";
   } catch (error) {
     document.getElementById("photoMusicStatus").textContent =
-      "♫ Add assets/photos-music.mp3 to play your first song";
+      "Add assets/photos-music.mp3 to play your first song";
   }
 }
 
@@ -576,7 +771,7 @@ async function togglePhotoMusic() {
         "♫ Photo-page music is playing 💗";
     } catch (error) {
       document.getElementById("photoMusicStatus").textContent =
-        "♫ Check that assets/photos-music.mp3 exists";
+        "Check that assets/photos-music.mp3 exists";
     }
   } else {
     photoMusic.pause();
@@ -585,14 +780,65 @@ async function togglePhotoMusic() {
   }
 }
 
-async function showMessage() {
-  // Stop the photo song before starting the letter soundtrack.
+/* PHOTO LIGHTBOX */
+
+function openPhoto(src) {
+  const lightbox = document.getElementById("lightbox");
+  document.getElementById("lightboxImage").src = src;
+  lightbox.classList.add("visible");
+}
+
+function closePhoto() {
+  document.getElementById("lightbox").classList.remove("visible");
+}
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closePhoto();
+});
+
+/* MEMORY REVEAL */
+
+function revealMemory() {
+  document.getElementById("memoryInside").classList.add("visible");
+  document.getElementById("memoryButton").textContent =
+    "YOUR LITTLE MEMORY IS OPEN 💗";
+}
+
+/* ENVELOPE AND LETTER */
+
+function goToEnvelope() {
   photoMusic.pause();
-  photoMusic.currentTime = 0;
+  changePage("envelopePage");
+}
 
-  // Change slide and immediately try playing the message soundtrack.
-  changePage("message");
+function openLetter() {
+  const envelope = document.getElementById("envelope");
+  const button = document.getElementById("openLetterButton");
 
+  envelope.classList.add("open");
+  button.textContent = "OPENING YOUR LETTER…";
+  button.disabled = true;
+
+  setTimeout(async () => {
+    changePage("message");
+    await tryMessageMusic();
+    startTypingMessage();
+  }, 850);
+}
+
+/* MESSAGE MUSIC */
+
+function updateMessageMusicUI(isPlaying) {
+  messageMusicButton.classList.toggle("playing", isPlaying);
+  messageMusicButtonText.textContent =
+    isPlaying ? "PAUSE MUSIC ♫" : "PLAY MUSIC ♫";
+
+  messageMusicStatus.textContent = isPlaying
+    ? "Now playing · Indila — Love Story (Piano Cover) ♡"
+    : "Indila · Love Story (Piano Cover)";
+}
+
+async function tryMessageMusic() {
   try {
     await messageMusic.play();
     updateMessageMusicUI(true);
@@ -605,21 +851,112 @@ async function showMessage() {
 
 async function toggleMessageMusic() {
   if (messageMusic.paused) {
-    try {
-      await messageMusic.play();
-      updateMessageMusicUI(true);
-    } catch (error) {
-      updateMessageMusicUI(false);
-      messageMusicStatus.textContent =
-        "Music couldn't start. Check that assets/message-music.mp3 exists.";
-    }
+    await tryMessageMusic();
   } else {
     messageMusic.pause();
     updateMessageMusicUI(false);
   }
 }
 
+/* WORD-BY-WORD MESSAGE ANIMATION */
+
+function startTypingMessage() {
+  if (typingStarted) return;
+  typingStarted = true;
+
+  const container = document.getElementById("birthdayMessage");
+
+  /*
+    Splitting while retaining whitespace preserves the exact
+    wording, spaces, line breaks and emojis in the message.
+  */
+  const pieces = birthdayMessage.split(/(\s+)/);
+  const words = [];
+
+  pieces.forEach(piece => {
+    if (/^\s+$/.test(piece)) {
+      container.appendChild(document.createTextNode(piece));
+    } else if (piece.length > 0) {
+      const span = document.createElement("span");
+      span.className = "word";
+      span.textContent = piece;
+      container.appendChild(span);
+      words.push(span);
+    }
+  });
+
+  let index = 0;
+  const status = document.getElementById("typingStatus");
+
+  function typeNextWord() {
+    if (index >= words.length) {
+      typingFinished = true;
+      status.textContent = "Every word, straight from the heart. 💗";
+      document.getElementById("hugButton").hidden = false;
+      return;
+    }
+
+    words[index].classList.add("shown");
+    index++;
+
+    if (index % 12 === 0) {
+      words[index - 1].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+    }
+
+    typingTimer = setTimeout(typeNextWord, 65);
+  }
+
+  typeNextWord();
+}
+
+function showAllMessage() {
+  if (!typingStarted) {
+    startTypingMessage();
+  }
+
+  clearTimeout(typingTimer);
+
+  document.querySelectorAll("#birthdayMessage .word").forEach(word => {
+    word.classList.add("shown");
+  });
+
+  typingFinished = true;
+  document.getElementById("typingStatus").textContent =
+    "Every word, straight from the heart. 💗";
+  document.getElementById("hugButton").hidden = false;
+}
+
+function showHug() {
+  document.getElementById("finalHug").classList.add("visible");
+  document.getElementById("hugButton").textContent = "SENDING YOU A BIG HUG 💗";
+
+  for (let i = 0; i < 12; i++) {
+    const heart = document.createElement("div");
+    heart.textContent = i % 2 === 0 ? "💗" : "♡";
+    heart.style.position = "fixed";
+    heart.style.left = (5 + Math.random() * 90) + "%";
+    heart.style.bottom = "-30px";
+    heart.style.fontSize = (18 + Math.random() * 22) + "px";
+    heart.style.pointerEvents = "none";
+    heart.style.zIndex = "200";
+    heart.style.transition = "transform 3s ease, opacity 3s ease";
+    document.body.appendChild(heart);
+
+    requestAnimationFrame(() => {
+      heart.style.transform =
+        "translateY(-" + (window.innerHeight + 100) + "px) rotate(35deg)";
+      heart.style.opacity = "0";
+    });
+
+    setTimeout(() => heart.remove(), 3200);
+  }
+}
+
 function backToPhotos() {
+  clearTimeout(typingTimer);
   messageMusic.pause();
   messageMusic.currentTime = 0;
   updateMessageMusicUI(false);
