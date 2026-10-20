@@ -1,1 +1,524 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Afeefu 💗</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --pink: #ff8dbb;
+  --light: #ffe3ef;
+  --red: #9e2146;
+  --bg: #090507;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+button { font-family: inherit; }
+
+.page {
+  display: none;
+  min-height: 100svh;
+  position: relative;
+  overflow: hidden;
+}
+
+.page.active {
+  display: flex;
+  animation: pageIn 1s ease both;
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, #68102d44, transparent 45%),
+    radial-gradient(ellipse at 80% 70%, #9e214633, transparent 42%),
+    linear-gradient(135deg, #090507, #170710 55%, #090507);
+}
+
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.spark {
+  position: absolute;
+  bottom: -30px;
+  color: #ff8dbb;
+  opacity: 0;
+  animation: floatUp linear infinite;
+  text-shadow: 0 0 15px #ff4d94;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  15% { opacity: .7; }
+  85% { opacity: .45; }
+  100% { transform: translateY(-115vh) rotate(300deg); opacity: 0; }
+}
+
+.content {
+  width: min(100% - 32px, 1000px);
+  margin: auto;
+  padding: 70px 0;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.eyebrow {
+  color: var(--pink);
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 10px;
+  margin-bottom: 26px;
+}
+
+.script {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+h1 {
+  font-size: clamp(43px, 9vw, 90px);
+  line-height: 1.08;
+  font-weight: 500;
+  letter-spacing: -2px;
+}
+
+.gradient-text {
+  background: linear-gradient(110deg, #fff0f7, #ff8dbb, #ffcfdd, #c94b78);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 20px #e94e8444);
+}
+
+.subtitle {
+  color: #c9b2bd;
+  font-size: 13px;
+  line-height: 2;
+  margin: 24px auto 0;
+  max-width: 440px;
+  font-weight: 300;
+}
+
+.headphone {
+  display: inline-block;
+  margin: 30px 0 27px;
+  padding: 13px 19px;
+  border: 1px solid #ff8dbb99;
+  border-radius: 8px;
+  background: #ff8dbb0e;
+  color: #ffd4e5;
+  font-size: 11px;
+  letter-spacing: 1.3px;
+  box-shadow: 0 0 30px #ff4d9410;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  50% { box-shadow: 0 0 30px #ff4d9430; }
+}
+
+.primary-btn {
+  display: inline-block;
+  padding: 15px 27px;
+  border: 1px solid #ff8dbb;
+  border-radius: 50px;
+  color: #fff4f8;
+  background: linear-gradient(120deg, #70152f, #b72b59);
+  cursor: pointer;
+  letter-spacing: 1px;
+  font-size: 11px;
+  transition: .3s;
+  box-shadow: 0 0 30px #b72b5933;
+}
+
+.primary-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 0 40px #ff4d9455;
+}
+
+.tiny-note {
+  margin-top: 20px;
+  font-size: 10px;
+  color: #927b87;
+}
+
+/* PHOTO PAGE */
+
+#gallery .content { width: min(100% - 32px, 1050px); }
+
+.birthday-title {
+  margin-bottom: 14px;
+}
+
+.gallery-subtitle {
+  color: #c9aebc;
+  font-size: 12px;
+  margin-bottom: 36px;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
+  margin: 0 auto 35px;
+}
+
+.photo-card {
+  position: relative;
+  padding: 8px 8px 15px;
+  border: 1px solid #e98aae55;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #ffffff12, #8d15351c);
+  box-shadow: 0 10px 35px #0008, 0 0 22px #e94e8410;
+  transition: .4s;
+  animation: reveal 1s both;
+}
+
+.photo-card:nth-child(2) { animation-delay: .15s; }
+.photo-card:nth-child(3) { animation-delay: .3s; }
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(25px) rotate(-3deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+.photo-card:hover {
+  transform: translateY(-8px) rotate(1deg);
+  border-color: var(--pink);
+  box-shadow: 0 15px 40px #ff4d9422;
+}
+
+.photo-card img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  background: #25101b;
+  color: #ffbdd6;
+  font-size: 12px;
+}
+
+.photo-caption {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 19px;
+  color: #ffd7e6;
+  margin-top: 11px;
+}
+
+.music-control {
+  position: fixed;
+  z-index: 5;
+  bottom: 18px;
+  right: 18px;
+  display: none;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  color: white;
+  background: #250b17eF;
+  border: 1px solid #ff8dbb66;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 11px;
+  backdrop-filter: blur(12px);
+}
+
+.music-bars {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  height: 17px;
+}
+
+.music-bars i {
+  width: 3px;
+  height: 5px;
+  background: var(--pink);
+  border-radius: 3px;
+}
+
+.music-control.playing .music-bars i {
+  animation: equalize .55s infinite alternate ease-in-out;
+}
+
+.music-bars i:nth-child(2) { animation-delay: .15s; }
+.music-bars i:nth-child(3) { animation-delay: .3s; }
+.music-bars i:nth-child(4) { animation-delay: .1s; }
+
+@keyframes equalize {
+  to { height: 16px; }
+}
+
+/* LETTER PAGE */
+
+.letter {
+  max-width: 720px;
+  margin: 35px auto;
+  padding: clamp(24px, 6vw, 55px);
+  text-align: left;
+  line-height: 2.1;
+  font-size: 14px;
+  font-weight: 300;
+  color: #f5dce6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: linear-gradient(145deg, #ffffff0a, #8d153514);
+  border: 1px solid #ff8dbb55;
+  border-radius: 8px;
+  box-shadow: 0 0 55px #e94e8410;
+}
+
+.letter-heading {
+  text-align: center;
+  color: var(--pink);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 35px;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.final-heart {
+  display: block;
+  font-size: 45px;
+  margin-bottom: 20px;
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  50% { transform: scale(1.16); }
+}
+
+.footer-note {
+  color: #967482;
+  font-size: 10px;
+  margin-top: 28px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 600px) {
+  .content { padding: 65px 0; }
+  h1 { letter-spacing: -1px; }
+  .photo-grid { gap: 9px; }
+  .photo-card { padding: 5px 5px 10px; }
+  .photo-caption { font-size: 15px; }
+  .letter { font-size: 13px; line-height: 1.9; }
+  .eyebrow { letter-spacing: 3px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="ambient"></div>
+<div id="particles"></div>
+
+<!-- MUSIC FILE: assets/music.mp3 -->
+<audio id="bgMusic" src="assets/music.mp3" loop preload="auto"></audio>
+
+<!-- PAGE 1: INTRO -->
+
+<section class="page active" id="intro">
+  <div class="content">
+    <p class="eyebrow">✦ A little something from my heart ✦</p>
+
+    <div style="font-size:42px; margin-bottom:22px;">🎀</div>
+
+    <h1 class="script">
+      Hey, <span class="gradient-text">Afeefu...</span>
+    </h1>
+
+    <p class="subtitle">
+      I have something special waiting for you.<br>
+      So take a little break from everything,<br>
+      because today is all about YOU. 💗
+    </p>
+
+    <div class="headphone">
+      🎧 &nbsp; MUST WEAR YOUR HEADPHONES &nbsp; 🎧
+    </div>
+
+    <p class="subtitle" style="margin-top:0; margin-bottom:25px;">
+      Turn up the volume, get comfortable,<br>
+      and let me make your day a little more special.
+    </p>
+
+    <button class="primary-btn" onclick="startSurprise()">
+      OPEN YOUR SURPRISE &nbsp; ♡
+    </button>
+
+    <p class="tiny-note">MADE WITH LOVE, JUST FOR YOU ✦</p>
+  </div>
+</section>
+
+<!-- PAGE 2: PHOTOS + BIRTHDAY -->
+
+<section class="page" id="gallery">
+  <div class="content">
+    <p class="eyebrow">✦ Today is your day ✦</p>
+
+    <h1 class="birthday-title">
+      Happy Birthday,<br>
+      <span class="gradient-text script">Afeefu ♡</span>
+    </h1>
+
+    <p class="gallery-subtitle">
+      A little collection of someone truly special to me.
+    </p>
+
+    <div class="photo-grid">
+
+      <!-- Replace these files with your own photos -->
+      <div class="photo-card">
+        <img src="assets/photo1.jpg" alt="Afeefu memory 1">
+        <p class="photo-caption">Pretty little moments ♡</p>
+      </div>
+
+      <div class="photo-card">
+        <img src="assets/photo2.jpg" alt="Afeefu memory 2">
+        <p class="photo-caption">Your beautiful world ✨</p>
+      </div>
+
+      <div class="photo-card">
+        <img src="assets/photo3.jpg" alt="Afeefu memory 3">
+        <p class="photo-caption">Forever a favourite 💗</p>
+      </div>
+
+    </div>
+
+    <p class="subtitle" style="margin-top:0; margin-bottom:28px;">
+      You deserve all the happiness this world has to offer.
+    </p>
+
+    <button class="primary-btn" onclick="showPage('message')">
+      NEXT, MY FAVOURITE PERSON &nbsp; →
+    </button>
+
+    <p class="footer-note">THERE'S STILL SOMETHING I WANT TO TELL YOU...</p>
+  </div>
+</section>
+
+<!-- PAGE 3: YOUR PERSONAL MESSAGE -->
+
+<section class="page" id="message">
+  <div class="content">
+    <p class="eyebrow">✦ From my heart to yours ✦</p>
+
+    <span class="final-heart">💌</span>
+
+    <h1 class="script">
+      A letter for <span class="gradient-text">you.</span>
+    </h1>
+
+    <div class="letter">
+      <div class="letter-heading">To my favourite person ♡</div>
+
+      <div id="birthdayMessage">YOUR PERSONAL BIRTHDAY MESSAGE WILL GO HERE.
+
+We'll replace this placeholder with your exact message when you send it.
+
+Every word, every emotion, every little detail — just the way you wrote it. 💗</div>
+    </div>
+
+    <button class="primary-btn" onclick="showPage('gallery')">
+      ← BACK TO YOUR MEMORIES
+    </button>
+
+    <p class="footer-note">HAPPY BIRTHDAY ONCE AGAIN, AFEEFU 🫂💗</p>
+  </div>
+</section>
+
+<button class="music-control" id="musicControl" onclick="toggleMusic()">
+  <span class="music-bars"><i></i><i></i><i></i><i></i></span>
+  <span id="musicLabel">Pause music</span>
+</button>
+
+<script>
+const music = document.getElementById('bgMusic');
+const musicControl = document.getElementById('musicControl');
+const musicLabel = document.getElementById('musicLabel');
+
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+async function startSurprise() {
+  // Start the birthday music after the visitor clicks.
+  try {
+    await music.play();
+  } catch (error) {
+    console.log('Music could not start. Check assets/music.mp3.');
+  }
+
+  musicControl.style.display = 'flex';
+  updateMusicButton();
+  showPage('gallery');
+}
+
+function toggleMusic() {
+  if (music.paused) {
+    music.play().then(updateMusicButton).catch(() => {
+      musicLabel.textContent = 'Tap to play again';
+    });
+  } else {
+    music.pause();
+    updateMusicButton();
+  }
+}
+
+function updateMusicButton() {
+  musicLabel.textContent = music.paused ? 'Play music' : 'Pause music';
+  musicControl.classList.toggle('playing', !music.paused);
+}
+
+// Floating hearts and sparkles.
+const particleArea = document.getElementById('particles');
+const symbols = ['♡', '✦', '♥', '·'];
+
+for (let i = 0; i < 30; i++) {
+  const particle = document.createElement('span');
+  particle.className = 'spark';
+  particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.animationDuration = (9 + Math.random() * 13) + 's';
+  particle.style.animationDelay = (-Math.random() * 20) + 's';
+  particle.style.fontSize = (10 + Math.random() * 15) + 'px';
+  particleArea.appendChild(particle);
+}
+</script>
+
+</body>
+</html>
+
