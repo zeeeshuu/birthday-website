@@ -7,26 +7,16 @@
 <title>For Afeefu 💗</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap');
 
 :root {
   --black: #090609;
   --burgundy: #430b20;
-  --red: #a51d48;
   --pink: #ff8eb5;
-  --soft-pink: #ffd3e2;
   --white: #fff4f8;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   min-height: 100vh;
@@ -38,10 +28,7 @@ body {
   overflow-x: hidden;
 }
 
-button {
-  font-family: inherit;
-  cursor: pointer;
-}
+button { font-family: inherit; cursor: pointer; }
 
 .page {
   display: none;
@@ -181,8 +168,6 @@ h2 {
   line-height: 1.7;
 }
 
-/* FLOATING HEARTS */
-
 .heart {
   position: fixed;
   bottom: -40px;
@@ -202,7 +187,7 @@ h2 {
   100% { transform: translateY(-115vh) rotate(35deg); opacity: 0; }
 }
 
-/* PHOTO PAGE */
+/* PHOTOS */
 
 .photo-grid {
   display: grid;
@@ -218,12 +203,12 @@ h2 {
   border-radius: 5px;
   box-shadow: 0 12px 35px #0008, 0 0 22px #e95a8b12;
   color: #47182a;
-  animation: photoAppear .8s both;
   transition: transform .35s, box-shadow .35s;
 }
 
 .photo-card:nth-child(2n) { transform: rotate(2deg); }
 .photo-card:nth-child(3n) { transform: rotate(-2deg); }
+
 .photo-card:hover {
   transform: translateY(-8px) rotate(0deg) scale(1.025);
   box-shadow: 0 18px 40px #0009, 0 0 30px #ff8eb533;
@@ -244,11 +229,6 @@ h2 {
   font-style: italic;
 }
 
-@keyframes photoAppear {
-  from { opacity: 0; transform: translateY(25px) scale(.95); }
-  to { opacity: 1; }
-}
-
 .music-status {
   color: #f0b6cc;
   font-size: 12px;
@@ -263,7 +243,7 @@ h2 {
   margin-top: 20px;
 }
 
-/* MESSAGE PAGE */
+/* LETTER */
 
 .letter {
   text-align: left;
@@ -295,31 +275,75 @@ h2 {
   font-weight: 300;
 }
 
-.youtube-box {
+.music-card {
   max-width: 800px;
   width: 100%;
   margin: 25px auto;
   padding: 20px;
   border-radius: 16px;
-  background: #ffffff08;
-  border: 1px solid #ff8eb52b;
-  text-align: center;
+  background: linear-gradient(135deg, #2c101eaa, #140a12);
+  border: 1px solid #ff8eb53d;
+  box-shadow: 0 0 35px #a51d4818;
 }
 
-.youtube-box p {
+.music-card .music-title {
   color: #ffd0e0;
-  margin-bottom: 15px;
-  font-size: 13px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 25px;
 }
 
-.youtube-box iframe {
-  width: 100%;
-  max-width: 560px;
-  aspect-ratio: 16 / 9;
-  height: auto;
-  border: 0;
-  border-radius: 10px;
-  background: #10080d;
+.music-card .music-subtitle {
+  color: #c5a0b0;
+  font-size: 11px;
+  margin: 6px 0 17px;
+}
+
+.music-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 24px;
+  min-width: 180px;
+  border-radius: 50px;
+  color: white;
+  border: 1px solid #ff8eb58a;
+  background: linear-gradient(135deg, #65132f, #a82b56);
+  box-shadow: 0 0 24px #e3387522;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.music-button:disabled {
+  opacity: .7;
+  cursor: wait;
+}
+
+.equalizer {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 18px;
+}
+
+.equalizer span {
+  width: 3px;
+  height: 5px;
+  border-radius: 4px;
+  background: #ffd3e2;
+}
+
+.music-button.playing .equalizer span {
+  animation: equalize .65s ease-in-out infinite alternate;
+}
+
+.equalizer span:nth-child(2) { animation-delay: .2s; }
+.equalizer span:nth-child(3) { animation-delay: .4s; }
+.equalizer span:nth-child(4) { animation-delay: .1s; }
+
+@keyframes equalize {
+  from { height: 4px; }
+  to { height: 17px; }
 }
 
 .footer {
@@ -335,12 +359,8 @@ h2 {
     gap: 13px;
   }
 
-  .photo-card img {
-    height: 175px;
-  }
-
+  .photo-card img { height: 175px; }
   .photo-caption { font-size: 17px; }
-
   .page { padding: 28px 15px; }
 
   .message-text {
@@ -367,12 +387,17 @@ h2 {
 <div class="heart" style="--left:71%;--size:17px;--duration:17s;--delay:1s">♥</div>
 <div class="heart" style="--left:91%;--size:20px;--duration:15s;--delay:6s">♡</div>
 
-<!-- MUSIC FOR THE PHOTO PAGE -->
+<!-- PHOTO-PAGE MUSIC -->
 <audio id="photoMusic" loop preload="none">
   <source src="assets/photos-music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- INTRO PAGE -->
+<!-- LONG MESSAGE MUSIC: YOUR UPLOADED MP3 -->
+<audio id="messageMusic" loop preload="auto">
+  <source src="assets/message-music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- INTRO -->
 <section id="intro" class="page active">
   <div class="content">
     <p class="eyebrow">A little surprise, made just for you</p>
@@ -393,13 +418,11 @@ h2 {
       OPEN YOUR SURPRISE ✨
     </button>
 
-    <p class="tiny-note">
-      Made with lots of love, just for you. 🫂💗
-    </p>
+    <p class="tiny-note">Made with lots of love, just for you. 🫂💗</p>
   </div>
 </section>
 
-<!-- PHOTOS PAGE -->
+<!-- PHOTO GALLERY -->
 <section id="gallery" class="page">
   <div class="content">
     <p class="eyebrow">A few memories, a million feelings</p>
@@ -457,33 +480,32 @@ h2 {
       </button>
     </div>
 
-    <p class="tiny-note">
-      Six little frames, and so many more memories to make. 💗
-    </p>
+    <p class="tiny-note">Six little frames, and so many more memories to make. 💗</p>
   </div>
 </section>
 
-<!-- LONG BIRTHDAY MESSAGE PAGE -->
+<!-- LONG MESSAGE -->
 <section id="message" class="page">
   <div class="content">
     <p class="eyebrow">From my heart to yours</p>
 
     <h2>A little letter for <span class="pink">you.</span></h2>
 
-    <div class="youtube-box">
-      <p>🎧 Your birthday letter soundtrack · Press play to listen 💗</p>
-
-      <iframe
-        src="https://www.youtube-nocookie.com/embed/fGmythNcj2E"
-        title="Birthday message music"
-        allow="encrypted-media; picture-in-picture"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen>
-      </iframe>
-
-      <p style="margin:12px 0 0;color:#c5a0b0;font-size:11px">
-        Press play above while reading your letter. 🫂
+    <div class="music-card">
+      <div class="music-title">A little melody for your letter ♡</div>
+      <p class="music-subtitle" id="messageMusicStatus">
+        Indila · Love Story (Piano Cover)
       </p>
+
+      <button
+        id="messageMusicButton"
+        class="music-button"
+        onclick="toggleMessageMusic()">
+        <span class="equalizer" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </span>
+        <span id="messageMusicButtonText">PLAY MUSIC ♫</span>
+      </button>
     </div>
 
     <article class="letter">
@@ -509,6 +531,12 @@ How would life even be the same without youuu legiittt 😭😭 I am genuinely s
 
 document.getElementById("birthdayMessage").textContent = birthdayMessage;
 
+const photoMusic = document.getElementById("photoMusic");
+const messageMusic = document.getElementById("messageMusic");
+const messageMusicButton = document.getElementById("messageMusicButton");
+const messageMusicButtonText = document.getElementById("messageMusicButtonText");
+const messageMusicStatus = document.getElementById("messageMusicStatus");
+
 function changePage(pageId) {
   document.querySelectorAll(".page").forEach(page => {
     page.classList.remove("active");
@@ -518,45 +546,83 @@ function changePage(pageId) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+function updateMessageMusicUI(isPlaying) {
+  messageMusicButton.classList.toggle("playing", isPlaying);
+  messageMusicButtonText.textContent = isPlaying ? "PAUSE MUSIC ♫" : "PLAY MUSIC ♫";
+  messageMusicStatus.textContent = isPlaying
+    ? "Now playing · Indila — Love Story (Piano Cover) ♡"
+    : "Indila · Love Story (Piano Cover)";
+}
+
 async function startSurprise() {
   changePage("gallery");
-
-  const music = document.getElementById("photoMusic");
-  const status = document.getElementById("photoMusicStatus");
+  messageMusic.pause();
 
   try {
-    await music.play();
-    status.textContent = "♫ Photo-page music is playing 💗";
+    await photoMusic.play();
+    document.getElementById("photoMusicStatus").textContent =
+      "♫ Photo-page music is playing 💗";
   } catch (error) {
-    status.textContent =
-      "♫ Add your music file to start listening";
+    document.getElementById("photoMusicStatus").textContent =
+      "♫ Add assets/photos-music.mp3 to play your first song";
   }
 }
 
 async function togglePhotoMusic() {
-  const music = document.getElementById("photoMusic");
-  const status = document.getElementById("photoMusicStatus");
-
-  if (music.paused) {
+  if (photoMusic.paused) {
     try {
-      await music.play();
-      status.textContent = "♫ Photo-page music is playing 💗";
+      await photoMusic.play();
+      document.getElementById("photoMusicStatus").textContent =
+        "♫ Photo-page music is playing 💗";
     } catch (error) {
-      status.textContent =
+      document.getElementById("photoMusicStatus").textContent =
         "♫ Check that assets/photos-music.mp3 exists";
     }
   } else {
-    music.pause();
-    status.textContent = "♫ Photo-page music paused";
+    photoMusic.pause();
+    document.getElementById("photoMusicStatus").textContent =
+      "♫ Photo-page music paused";
   }
 }
 
-function showMessage() {
-  document.getElementById("photoMusic").pause();
+async function showMessage() {
+  // Stop the photo song before starting the letter soundtrack.
+  photoMusic.pause();
+  photoMusic.currentTime = 0;
+
+  // Change slide and immediately try playing the message soundtrack.
   changePage("message");
+
+  try {
+    await messageMusic.play();
+    updateMessageMusicUI(true);
+  } catch (error) {
+    updateMessageMusicUI(false);
+    messageMusicStatus.textContent =
+      "Tap PLAY MUSIC if your browser blocks automatic playback.";
+  }
+}
+
+async function toggleMessageMusic() {
+  if (messageMusic.paused) {
+    try {
+      await messageMusic.play();
+      updateMessageMusicUI(true);
+    } catch (error) {
+      updateMessageMusicUI(false);
+      messageMusicStatus.textContent =
+        "Music couldn't start. Check that assets/message-music.mp3 exists.";
+    }
+  } else {
+    messageMusic.pause();
+    updateMessageMusicUI(false);
+  }
 }
 
 function backToPhotos() {
+  messageMusic.pause();
+  messageMusic.currentTime = 0;
+  updateMessageMusicUI(false);
   changePage("gallery");
 }
 </script>
